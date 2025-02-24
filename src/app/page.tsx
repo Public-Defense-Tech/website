@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button } from "@mui/material";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -19,6 +20,8 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
+
+        <Button>I&apos;m an MUI Button</Button>
 
         <div className={styles.ctas}>
           <a
