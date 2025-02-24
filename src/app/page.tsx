@@ -92,7 +92,6 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-        Just a test
       </footer>
     </div>
   );
