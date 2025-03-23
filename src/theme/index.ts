@@ -1,7 +1,6 @@
 // Re-export everything from the theme
 export { themeDefinition, type Theme } from "./definition";
 export { default as theme } from "./mui";
-export { default as ThemeRegistry } from "./ThemeRegistry";
 
 // Note: The MUI theme is not exported here because it contains
 // the "use client" directive and should be imported directly
