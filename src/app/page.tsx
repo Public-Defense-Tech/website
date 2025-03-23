@@ -15,13 +15,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <Section marginTop={0} marginBottom={0} noGrid noContainer>
-        <HeroSection
-          title="Public access to indigent defense data raises awareness about the challenges faced by underserved defendants, fostering community support for reforms."
-          buttonText="Explore the Data"
-          buttonHref="/data"
-          imageSrc="/images/courthouse.jpg"
-        />
+      <HeroSection         />
       </Section>
 
       {/* Data Insights Section */}
