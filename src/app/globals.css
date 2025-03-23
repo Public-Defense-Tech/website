@@ -10,6 +10,34 @@
   --foreground: #ededed;
 }
 
+@font-face {
+  font-family: "Standard Book";
+  src: url("/fonts/standard-book-webfont.woff2") format("woff2"),
+       url("/fonts/standard-book-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Standard Book Italic";
+  src: url("/fonts/standard-book-italic-webfont.woff2") format("woff2"),
+       url("/fonts/standard-book-italic-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Standard Bold";
+  src: url("/fonts/standard-bold-webfont.woff2") format("woff2"),
+       url("/fonts/standard-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 html,
 body {
   max-width: 100vw;
