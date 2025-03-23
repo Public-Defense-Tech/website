@@ -16,7 +16,6 @@ export default function Home() {
     <main>
       {/* Hero Section */}
       <HeroSection         />
-      </Section>
 
       {/* Data Insights Section */}
       <Section
