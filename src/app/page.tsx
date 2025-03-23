@@ -1,98 +1,224 @@
-import Image from "next/image";
-import { Button } from "@mui/material";
-import styles from "./page.module.css";
+"use client";
+
+import { Typography, Box, Divider, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+
+// Import our new components
+import HeroSection from "@/components/HeroSection";
+import DataCard from "@/components/DataCard";
+import StatCard from "@/components/StatCard";
+import PlaceholderImage from "@/components/PlaceholderImage";
+import Section from "@/components/Section";
+import ImpactItem from "@/components/ImpactItem";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <main>
+      {/* Hero Section */}
+      <Section marginTop={0} marginBottom={0} noGrid noContainer>
+        <HeroSection
+          title="Public access to indigent defense data raises awareness about the challenges faced by underserved defendants, fostering community support for reforms."
+          buttonText="Explore the Data"
+          buttonHref="/data"
+          imageSrc="/images/courthouse.jpg"
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      </Section>
 
-        <Button>I&apos;m an MUI Button</Button>
+      {/* Data Insights Section */}
+      <Section
+        title="Data Insights"
+        subtitle="Explore our data insights below"
+        spacing={3}
+      >
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Caseloads in Texas"
+            linkText="Read More About Caseloads"
+            linkHref="/caseloads"
+            isDark={true}
+          >
+            <Typography component="p">
+              Whether someone accused of a crime hires an attorney or is
+              appointed one depends on a lot of factors. The accused may have
+              more money and resources to afford an attorney.
+            </Typography>
+          </DataCard>
+        </Grid>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Outcomes in Texas"
+            linkText="Read More About Outcomes"
+            linkHref="/outcomes"
+            isDark={false}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
+            <Typography component="p">
+              Whether someone accused of a crime hires an attorney or is
+              appointed one depends on a lot of factors. The accused may have
+              more money and resources to afford an attorney.
+            </Typography>
+          </DataCard>
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Demographics in Texas"
+            linkText="Read More About Demographics"
+            linkHref="/demographics"
+            isDark={true}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            <Typography component="p">
+              The demographic makeup of defendants in the criminal justice
+              system often doesn&apos;t reflect the general population. Data
+              shows disparities in representation across racial, ethnic, and
+              socioeconomic lines.
+            </Typography>
+          </DataCard>
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Resources in Texas"
+            linkText="Read More About Resources"
+            linkHref="/resources"
+            isDark={false}
+          >
+            <Typography component="p">
+              Public defender offices across Texas face varying levels of
+              funding and resource allocation. Some counties have robust systems
+              with adequate staffing and support, while others struggle with
+              overwhelming caseloads.
+            </Typography>
+          </DataCard>
+        </Grid>
+      </Section>
+
+      <Box sx={{ my: 4 }}>
+        <Divider />
+      </Box>
+
+      {/* Second Hero Section */}
+      <Section marginTop={0} marginBottom={0} noGrid noContainer>
+        <HeroSection
+          title="Ultimately, better data contributes to a more equitable and efficient justice system, benefiting society as a whole."
+          imageSrc="/images/justice.jpg"
+        />
+      </Section>
+
+      {/* Case Lifecycle Section */}
+      <Section spacing={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Something about lifecycle of a case?
+          </Typography>
+          <Typography component="p">
+            Indigent defense data plays a crucial role in enhancing
+            accountability within the legal system. By tracking the performance
+            of public defenders, we can ensure they provide quality
+            representation and adhere to ethical standards. However, many public
+            defenders are overwhelmed by excessive case loads, which compromises
+            their ability to effectively advocate for their clients. This
+            transparency not only promotes trust in the system but also holds
+            defenders responsible for their work, ultimately benefiting those
+            they represent.
+          </Typography>
+          <Typography component="p">
+            Moreover, analyzing this data allows for better resource allocation
+            and policy development. The shortage of public defenders leads to
+            unequal access to justice, as many defendants are left with
+            inadequate representation. By identifying trends and areas of need,
+            we can direct resources more effectively to public defense services.
+            Data-driven insights inform policymakers about the effectiveness of
+            indigent defense systems, guiding necessary reforms and improvements
+            that promote fairness and equity in justice.
+          </Typography>
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <StatCard
+            value="87%"
+            description="of criminal cases in Texas are handled by appointed attorneys"
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </Grid>
+      </Section>
+
+      {/* Third Hero Section */}
+      <Section marginTop={0} marginBottom={0} noGrid noContainer>
+        <HeroSection
+          title="This awareness can lead to increased funding and collaboration among stakeholders, creating a more comprehensive support network for defendants."
+          imageSrc="/images/collaboration.jpg"
+        />
+      </Section>
+
+      {/* Impact Section */}
+      <Section spacing={4} marginBottom={8}>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Impact of data-driven tools
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <PlaceholderImage height="200px" />
+          </Box>
+        </Grid>
+        <Grid size={{ xs: 12, md: 8 }}>
+          <Stack spacing={4}>
+            <ImpactItem title="Improved Access to Justice">
+              <Typography component="p">
+                By highlighting disparities in public defense representation,
+                data can drive policies that ensure more equitable legal
+                representation for all, particularly for marginalized
+                communities.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Policy Reform">
+              <Typography component="p">
+                With evidence-backed insights, researchers and policymakers can
+                advocate for reforms that reduce systemic biases, improve legal
+                outcomes, and ensure fairer sentencing and treatment of
+                defendants.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Transparency and Accountability">
+              <Typography component="p">
+                Data sheds light on inefficiencies and inequalities within the
+                criminal justice system, promoting greater accountability among
+                public institutions and legal professionals.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Reduction in Mass Incarceration">
+              <Typography component="p">
+                By identifying patterns in over-policing or harsh sentencing,
+                data can support efforts to reduce unnecessary imprisonment,
+                benefiting individuals, families, and communities.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Community Empowerment">
+              <Typography paragraph>
+                Educating the public about the state of public defense and legal
+                representation empowers communities to push for reforms and
+                advocate for their rights.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Resource Allocation">
+              <Typography paragraph>
+                Data helps direct resources, like funding and staffing, to
+                underserved public defender offices, ensuring better support for
+                both defenders and defendants.
+              </Typography>
+            </ImpactItem>
+
+            <Typography paragraph>
+              Overall, the social impact is about creating a more just, fair,
+              and transparent criminal justice system that better serves all
+              citizens.
+            </Typography>
+          </Stack>
+        </Grid>
+      </Section>
+    </main>
   );
 }
