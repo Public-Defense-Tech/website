@@ -1,51 +1,52 @@
 import React from "react";
-import { Box, Container, Typography, Button } from "@mui/material";
+import { Box, Container, Typography, Button, Divider } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 
 interface HeroSectionProps {
-  title: string;
-  buttonText?: string;
-  buttonHref?: string;
-  containerSize?: "xs" | "sm" | "md" | "lg" | "xl";
-  imageSrc?: string;
+  title?: string;
+  subtitle?: string;
+  leftText?: string;
+  rightText?: string;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  title,
-  buttonText,
-  buttonHref,
-  containerSize = "md",
-  imageSrc = "/images/leaves-bg.jpg", // Default image
+  title = "Texas Defense Data",
+  subtitle = "The only site for publicly available indigent defense data.",
+  leftText = "What is Texas Defense Data?",
+  rightText = "Impacts of Public Defense Data",
+  ctaText = "Explore the Data",
+  ctaHref = "/data",
 }) => {
   return (
     <Box
       sx={{
         position: "relative",
         color: "common.white",
-        padding: "4rem 0",
-        textAlign: "center",
-        borderRadius: 0,
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
         overflow: "hidden",
         isolation: "isolate",
-        marginBottom: "2rem",
       }}
     >
       {/* Background image */}
       <Image
-        src={imageSrc}
-        alt="Background"
+        src="/images/prisoner.jpg"
+        alt="Prison bars background"
         fill
         priority
         style={{
-          zIndex: -1,
+          zIndex: -2,
           objectFit: "cover",
           objectPosition: "center",
         }}
         sizes="100vw"
       />
 
-      {/* Dark overlay for better text readability */}
+      {/* Dark gradient overlay */}
       <Box
         sx={{
           position: "absolute",
@@ -53,50 +54,119 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)",
           zIndex: -1,
         }}
       />
 
-      <Container maxWidth={containerSize}>
+      <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Box
           sx={{
-            maxWidth: "800px",
+            maxWidth: "900px",
             margin: "0 auto",
             padding: "0 1rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: 6,
           }}
         >
           <Typography
-            variant="h4"
-            component="h2"
-            gutterBottom
+            variant="h1"
+            component="h1"
             sx={{
-              fontWeight: 500,
-              lineHeight: 1.4,
+              fontSize: { xs: "3rem", md: "5rem" },
+              fontWeight: 400,
+              color: "#E2F0EA",
+              textAlign: "center",
+              fontFamily: "var(--font-geist-sans)",
+              letterSpacing: "-0.02em",
+              mb: 2,
             }}
           >
             {title}
           </Typography>
-          {buttonText && buttonHref && (
-            <Link href={buttonHref} passHref>
-              <Button
-                variant="contained"
-                color="secondary"
-                endIcon={<span>→</span>}
-                size="large"
-                sx={{
-                  mt: 3,
-                  padding: "0.75rem 1.5rem",
-                  borderRadius: "4px",
-                  "&:hover": {
-                    backgroundColor: "secondary.dark",
-                  },
-                }}
-              >
-                {buttonText}
-              </Button>
-            </Link>
-          )}
+
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{
+              fontSize: { xs: "1.25rem", md: "1.5rem" },
+              fontWeight: 400,
+              color: "rgba(255, 255, 255, 0.9)",
+              textAlign: "center",
+              fontFamily: "var(--font-geist-sans)",
+            }}
+          >
+            {subtitle}
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: { xs: 3, md: 4 },
+            }}
+          >
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{
+                fontSize: { xs: "1.25rem", md: "1.75rem" },
+                fontWeight: 400,
+                color: "#E2F0EA",
+                fontFamily: "var(--font-geist-sans)",
+              }}
+            >
+              {leftText}
+            </Typography>
+
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{
+                borderColor: "rgba(255, 255, 255, 0.5)",
+                height: "2rem",
+                my: "auto",
+              }}
+            />
+
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{
+                fontSize: { xs: "1.25rem", md: "1.75rem" },
+                fontWeight: 400,
+                color: "#E2F0EA",
+                fontFamily: "var(--font-geist-sans)",
+              }}
+            >
+              {rightText}
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              component={Link}
+              href={ctaHref}
+              variant="contained"
+              sx={{
+                backgroundColor: "#C45D3E",
+                color: "white",
+                px: 4,
+                py: 1.5,
+                fontSize: "1.125rem",
+                textTransform: "none",
+                borderRadius: "2rem",
+                "&:hover": {
+                  backgroundColor: "#B54D2E",
+                },
+              }}
+            >
+              → {ctaText}
+            </Button>
+          </Box>
         </Box>
       </Container>
     </Box>
