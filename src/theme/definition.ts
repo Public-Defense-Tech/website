@@ -92,28 +92,7 @@ export const themeDefinition = {
       dark: "#388e3c",
     },
   },
-  typography: {
-    fontFamily: "var(--font-geist-sans)",
-    // Add common typography variants for MUI
-    h1: {
-      fontWeight: 500,
-    },
-    h2: {
-      fontWeight: 500,
-    },
-    h3: {
-      fontWeight: 500,
-    },
-    h4: {
-      fontWeight: 500,
-    },
-    h5: {
-      fontWeight: 500,
-    },
-    h6: {
-      fontWeight: 500,
-    },
-  },
+
   // Define spacing as a base value (8px) that will be converted to a function in the MUI theme
   spacingBase: 8,
   // Add breakpoints for responsive design

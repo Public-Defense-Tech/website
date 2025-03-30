@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Container, Typography, Button, Divider } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Divider,
+  Grid2,
+} from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,7 +32,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       sx={{
         position: "relative",
         color: "common.white",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 64px)",
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
@@ -43,7 +50,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           objectFit: "cover",
           objectPosition: "center",
         }}
-        sizes="100vw"
       />
 
       {/* Dark gradient overlay */}
@@ -54,8 +60,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)",
+          background: `
+              linear-gradient(to bottom,
+               rgba(0, 0, 0, 0.3) 0%,
+               rgb(26 53 33 / 30%) 100%)`,
           zIndex: -1,
         }}
       />
@@ -63,7 +71,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Box
           sx={{
-            maxWidth: "900px",
             margin: "0 auto",
             padding: "0 1rem",
             display: "flex",
@@ -79,7 +86,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               fontWeight: 400,
               color: "#E2F0EA",
               textAlign: "center",
-              fontFamily: "var(--font-geist-sans)",
               letterSpacing: "-0.02em",
               mb: 2,
             }}
@@ -95,18 +101,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               fontWeight: 400,
               color: "rgba(255, 255, 255, 0.9)",
               textAlign: "center",
-              fontFamily: "var(--font-geist-sans)",
             }}
           >
             {subtitle}
           </Typography>
 
-          <Box
+          <Grid2
+            container
+            spacing={4}
+            direction="row"
             sx={{
-              display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-evenly",
               alignItems: "center",
-              gap: { xs: 3, md: 4 },
             }}
           >
             <Typography
@@ -116,7 +122,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 fontSize: { xs: "1.25rem", md: "1.75rem" },
                 fontWeight: 400,
                 color: "#E2F0EA",
-                fontFamily: "var(--font-geist-sans)",
               }}
             >
               {leftText}
@@ -139,34 +144,32 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 fontSize: { xs: "1.25rem", md: "1.75rem" },
                 fontWeight: 400,
                 color: "#E2F0EA",
-                fontFamily: "var(--font-geist-sans)",
               }}
             >
               {rightText}
             </Typography>
-          </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{
+                borderColor: "rgba(255, 255, 255, 0.5)",
+                height: "2rem",
+                my: "auto",
+              }}
+            />
+
             <Button
               component={Link}
               href={ctaHref}
               variant="contained"
               sx={{
-                backgroundColor: "#C45D3E",
-                color: "white",
-                px: 4,
-                py: 1.5,
                 fontSize: "1.125rem",
-                textTransform: "none",
-                borderRadius: "2rem",
-                "&:hover": {
-                  backgroundColor: "#B54D2E",
-                },
               }}
             >
               → {ctaText}
             </Button>
-          </Box>
+          </Grid2>
         </Box>
       </Container>
     </Box>
