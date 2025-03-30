@@ -53,6 +53,24 @@ const theme = createTheme({
   breakpoints: themeDefinition.breakpoints,
   spacing: themeDefinition.spacingBase,
   components: {
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          variants: [
+            {
+              props: { variant: "contained" },
+              style: {
+                backgroundColor: themeDefinition.palette.secondary.main,
+              },
+            },
+          ],
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         "@global": {
@@ -82,20 +100,6 @@ const theme = createTheme({
               fontDisplay: "swap",
             },
           ],
-        },
-        body: {
-          scrollbarWidth: "thin",
-          "&::-webkit-scrollbar": {
-            width: "8px",
-            height: "8px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: themeDefinition.palette.grey[300],
-            borderRadius: "4px",
-          },
-          "&::-webkit-scrollbar-track": {
-            backgroundColor: themeDefinition.palette.grey[100],
-          },
         },
       },
     },
