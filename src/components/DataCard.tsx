@@ -10,7 +10,6 @@ interface DataCardProps {
   children: React.ReactNode;
 }
 
-// Define styles at the top level for Pigment CSS static analysis
 const darkCardSx = {
   backgroundColor: "var(--palette-primary-main)",
   color: "var(--palette-common-white)",
