@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <HeroSection         />
+      <HeroSection />
 
       {/* Data Insights Section */}
       <Section
@@ -86,18 +86,6 @@ export default function Home() {
         </Grid>
       </Section>
 
-      <Box sx={{ my: 4 }}>
-        <Divider />
-      </Box>
-
-      {/* Second Hero Section */}
-      <Section marginTop={0} marginBottom={0} noGrid noContainer>
-        <HeroSection
-          title="Ultimately, better data contributes to a more equitable and efficient justice system, benefiting society as a whole."
-          imageSrc="/images/justice.jpg"
-        />
-      </Section>
-
       {/* Case Lifecycle Section */}
       <Section spacing={6}>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -132,14 +120,6 @@ export default function Home() {
             description="of criminal cases in Texas are handled by appointed attorneys"
           />
         </Grid>
-      </Section>
-
-      {/* Third Hero Section */}
-      <Section marginTop={0} marginBottom={0} noGrid noContainer>
-        <HeroSection
-          title="This awareness can lead to increased funding and collaboration among stakeholders, creating a more comprehensive support network for defendants."
-          imageSrc="/images/collaboration.jpg"
-        />
       </Section>
 
       {/* Impact Section */}
