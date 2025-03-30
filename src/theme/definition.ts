@@ -2,31 +2,31 @@
 export const themeDefinition = {
   palette: {
     primary: {
-      // #1A3A32 - Dark green primary color
-      main: "#1A3A32",
+      // #082D2A - Dark green primary color
+      main: "#082D2A",
 
-      // #2A4A42 - Lighter variant of primary color
-      light: "#2A4A42",
+      // #B1D4B9 - Lighter variant of primary color
+      light: "#B1D4B9",
 
       // #0A2A22 - Darker variant of primary color
       dark: "#0A2A22",
     },
     secondary: {
-      // #D15B3E - Orange secondary color
-      main: "#D15B3E",
+      // #D95D39 - Orange secondary color
+      main: "#D95D39",
 
-      // #E16B4E - Lighter variant of secondary color
-      light: "#E16B4E",
+      // #E79780 - Lighter variant of secondary color
+      light: "#E79780",
 
-      // #C14B2E - Darker variant of secondary color
-      dark: "#C14B2E",
+      // #95361C - Darker variant of secondary color
+      dark: "#95361C",
     },
     common: {
-      // #FFFFFF - White color
-      white: "#FFFFFF",
+      // #FAFAF3 - White color
+      white: "#FAFAF3",
 
-      // #000000 - Black color
-      black: "#000000",
+      // #0f0f0f - Black color
+      black: "#0f0f0f",
     },
     grey: {
       // #F5F5F5 - Very light grey
@@ -67,8 +67,8 @@ export const themeDefinition = {
       // #FFFFFF - Default background color
       default: "#FFFFFF",
 
-      // #FFFFFF - Paper background color
-      paper: "#FFFFFF",
+      // #FAFAF3 - Paper background color
+      paper: "#FAFAF3",
     },
     // Add error, warning, info, and success colors for MUI compatibility
     error: {
