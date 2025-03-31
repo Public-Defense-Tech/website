@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, Box, Divider, Stack } from "@mui/material";
+import { Typography, Box, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 // Import our new components
