@@ -11,6 +11,6 @@ const messages = {
   },
 };
 
-const useMessages = () => {
+export const useMessages = () => {
   return messages;
 };
