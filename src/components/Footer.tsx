@@ -63,7 +63,6 @@ const Footer = () => {
             </Typography>
             <Stack spacing={1}>
               <Link
-                component={Link}
                 href="/about"
                 passHref
                 sx={{
@@ -82,7 +81,6 @@ const Footer = () => {
                 About Us
               </Link>
               <Link
-                component={Link}
                 href="/data"
                 passHref
                 sx={{
@@ -101,7 +99,6 @@ const Footer = () => {
                 Data
               </Link>
               <Link
-                component={Link}
                 href="/contact"
                 passHref
                 sx={{
