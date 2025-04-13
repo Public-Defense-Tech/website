@@ -17,7 +17,7 @@ const Footer = () => {
       component="footer"
       sx={{
         backgroundColor: "primary.main",
-        color: "common.white",
+        color: "#E2F0EA",
         padding: "24px 0",
         marginTop: 0,
         borderTop: "1px solid rgba(255, 255, 255, 0.1)",
@@ -31,7 +31,6 @@ const Footer = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: "common.white",
                   mb: 2,
                   fontWeight: 700,
                   fontSize: "1.5rem",
@@ -47,7 +46,6 @@ const Footer = () => {
             <Typography
               variant="body2"
               sx={{
-                color: "common.white",
                 opacity: 0.9,
                 fontSize: "0.85rem",
                 mb: 0.5,
@@ -62,7 +60,6 @@ const Footer = () => {
             <Typography
               variant="h6"
               sx={{
-                color: "common.white",
                 mb: 2,
                 fontWeight: 600,
                 fontSize: "1.1rem",
@@ -74,7 +71,6 @@ const Footer = () => {
               <Link href="/about" passHref>
                 <MuiLink
                   sx={{
-                    color: "common.white",
                     opacity: 0.9,
                     textDecoration: "none",
                     display: "block",
@@ -92,7 +88,6 @@ const Footer = () => {
               <Link href="/data" passHref>
                 <MuiLink
                   sx={{
-                    color: "common.white",
                     opacity: 0.9,
                     textDecoration: "none",
                     display: "block",
@@ -110,7 +105,6 @@ const Footer = () => {
               <Link href="/contact" passHref>
                 <MuiLink
                   sx={{
-                    color: "common.white",
                     opacity: 0.9,
                     textDecoration: "none",
                     display: "block",

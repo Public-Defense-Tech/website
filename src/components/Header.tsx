@@ -21,7 +21,7 @@ const Header = () => {
             style={{
               fontWeight: 600,
               fontSize: "1.25rem",
-              color: "white",
+              color: "#E2F0EA",
               textDecoration: "none",
             }}
           >
@@ -32,7 +32,7 @@ const Header = () => {
             <Link
               href="/about"
               style={{
-                color: "white",
+                color: "#E2F0EA",
                 textDecoration: "none",
                 fontWeight: 500,
                 opacity: 0.9,
@@ -43,7 +43,7 @@ const Header = () => {
             <Link
               href="/data"
               style={{
-                color: "white",
+                color: "#E2F0EA",
                 textDecoration: "none",
                 fontWeight: 500,
                 opacity: 0.9,
@@ -54,7 +54,7 @@ const Header = () => {
             <Link
               href="/resources"
               style={{
-                color: "white",
+                color: "#E2F0EA",
                 textDecoration: "none",
                 fontWeight: 500,
                 opacity: 0.9,
@@ -65,7 +65,7 @@ const Header = () => {
             <Link
               href="/contact"
               style={{
-                color: "white",
+                color: "#E2F0EA",
                 textDecoration: "none",
                 fontWeight: 500,
                 opacity: 0.9,

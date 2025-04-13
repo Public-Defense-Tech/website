@@ -31,7 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     <Box
       sx={{
         position: "relative",
-        color: "common.white",
+        color: "rgba(255, 255, 255, 1)",
         minHeight: "calc(100vh - 64px)",
         display: "flex",
         alignItems: "center",
@@ -99,7 +99,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             sx={{
               fontSize: { xs: "1.25rem", md: "1.5rem" },
               fontWeight: 400,
-              color: "rgba(255, 255, 255, 0.9)",
+              color: "#E2F0EA",
               textAlign: "center",
             }}
           >
