@@ -1,13 +1,12 @@
 "use client";
 
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 // Import our new components
 import HeroSection from "@/components/HeroSection";
 import DataCard from "@/components/DataCard";
 import StatCard from "@/components/StatCard";
-import PlaceholderImage from "@/components/PlaceholderImage";
 import Section from "@/components/Section";
 import ImpactItem from "@/components/ImpactItem";
 
@@ -92,7 +91,7 @@ export default function Home() {
           <Typography variant="h4" component="h2" gutterBottom>
             Something about lifecycle of a case?
           </Typography>
-          <Typography component="p">
+          <Typography mb="1rem">
             Indigent defense data plays a crucial role in enhancing
             accountability within the legal system. By tracking the performance
             of public defenders, we can ensure they provide quality
@@ -103,7 +102,7 @@ export default function Home() {
             defenders responsible for their work, ultimately benefiting those
             they represent.
           </Typography>
-          <Typography component="p">
+          <Typography>
             Moreover, analyzing this data allows for better resource allocation
             and policy development. The shortage of public defenders leads to
             unequal access to justice, as many defendants are left with
@@ -128,14 +127,11 @@ export default function Home() {
           <Typography variant="h4" component="h2" gutterBottom>
             Impact of data-driven tools
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-            <PlaceholderImage height="200px" />
-          </Box>
         </Grid>
         <Grid size={{ xs: 12, md: 8 }}>
           <Stack spacing={4}>
             <ImpactItem title="Improved Access to Justice">
-              <Typography component="p">
+              <Typography>
                 By highlighting disparities in public defense representation,
                 data can drive policies that ensure more equitable legal
                 representation for all, particularly for marginalized
@@ -144,7 +140,7 @@ export default function Home() {
             </ImpactItem>
 
             <ImpactItem title="Policy Reform">
-              <Typography component="p">
+              <Typography>
                 With evidence-backed insights, researchers and policymakers can
                 advocate for reforms that reduce systemic biases, improve legal
                 outcomes, and ensure fairer sentencing and treatment of
@@ -153,7 +149,7 @@ export default function Home() {
             </ImpactItem>
 
             <ImpactItem title="Transparency and Accountability">
-              <Typography component="p">
+              <Typography>
                 Data sheds light on inefficiencies and inequalities within the
                 criminal justice system, promoting greater accountability among
                 public institutions and legal professionals.
@@ -161,7 +157,7 @@ export default function Home() {
             </ImpactItem>
 
             <ImpactItem title="Reduction in Mass Incarceration">
-              <Typography component="p">
+              <Typography>
                 By identifying patterns in over-policing or harsh sentencing,
                 data can support efforts to reduce unnecessary imprisonment,
                 benefiting individuals, families, and communities.
@@ -169,7 +165,7 @@ export default function Home() {
             </ImpactItem>
 
             <ImpactItem title="Community Empowerment">
-              <Typography paragraph>
+              <Typography>
                 Educating the public about the state of public defense and legal
                 representation empowers communities to push for reforms and
                 advocate for their rights.
@@ -177,14 +173,14 @@ export default function Home() {
             </ImpactItem>
 
             <ImpactItem title="Resource Allocation">
-              <Typography paragraph>
+              <Typography>
                 Data helps direct resources, like funding and staffing, to
                 underserved public defender offices, ensuring better support for
                 both defenders and defendants.
               </Typography>
             </ImpactItem>
 
-            <Typography paragraph>
+            <Typography>
               Overall, the social impact is about creating a more just, fair,
               and transparent criminal justice system that better serves all
               citizens.

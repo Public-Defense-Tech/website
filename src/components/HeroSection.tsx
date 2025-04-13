@@ -7,7 +7,7 @@ import {
   Divider,
   Grid2,
 } from "@mui/material";
-import Link from "next/link";
+import Link from "@/components/Link";
 import Image from "next/image";
 
 interface HeroSectionProps {
@@ -83,11 +83,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             component="h1"
             sx={{
               fontSize: { xs: "3rem", md: "5rem" },
-              fontWeight: 400,
-              color: "#E2F0EA",
               textAlign: "center",
-              letterSpacing: "-0.02em",
-              mb: 2,
+              mb: "1rem",
             }}
           >
             {title}
@@ -107,6 +104,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </Typography>
 
           <Grid2
+            columns={{ xs: 1, md: 3 }}
             container
             spacing={4}
             direction="row"
