@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@/components/Link";
 import {
   Container,
   Typography,
@@ -9,9 +10,7 @@ import {
   Button,
   Tabs,
   Tab,
-  Link as MuiLink,
 } from "@mui/material";
-import Link from "next/link";
 
 export default function Data() {
   return (
@@ -22,7 +21,6 @@ export default function Data() {
             backgroundImage: "url('/images/leaves-bg.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            color: "common.white",
             py: 12,
             textAlign: "center",
             mb: 8,
@@ -44,14 +42,14 @@ export default function Data() {
           <Typography variant="h4" component="h2" gutterBottom>
             Data Overview
           </Typography>
-          <Typography paragraph>
+          <Typography>
             Our data provides insights into various aspects of the public
             defense system in Texas, including caseloads, outcomes, attorney
             assignments, and more. By exploring this data, you can gain a better
             understanding of the challenges faced by public defenders and their
             clients, as well as identify opportunities for improvement.
           </Typography>
-          <Typography paragraph>
+          <Typography>
             We present our data in multiple formats to accommodate different
             needs and preferences. You can explore interactive visualizations,
             download raw data for your own analysis, or read our reports that
@@ -88,7 +86,7 @@ export default function Data() {
                     Texas
                   </Link>
                 </Typography>
-                <Typography paragraph>
+                <Typography>
                   Whether someone accused of a crime hires an attorney or is
                   appointed one depends on a lot of factors. The accused may
                   have more money and resources to afford an attorney. For
@@ -98,21 +96,21 @@ export default function Data() {
                   higher proportion of folks accused of DWIs retaining their own
                   attorney.
                 </Typography>
-                <Link href="/data/caseloads" passHref>
-                  <MuiLink
-                    sx={{
-                      color: "common.white",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      mt: 2,
-                      textDecoration: "none",
-                      "&:hover": {
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    → Explore Caseload Data
-                  </MuiLink>
+                <Link
+                  href="/data/caseloads"
+                  passHref
+                  sx={{
+                    color: "common.white",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    mt: 2,
+                    textDecoration: "none",
+                    "&:hover": {
+                      textDecoration: "underline",
+                    },
+                  }}
+                >
+                  → Explore Caseload Data
                 </Link>
               </Paper>
             </Grid>
@@ -127,12 +125,9 @@ export default function Data() {
                 }}
               >
                 <Typography variant="h5" component="h3" gutterBottom>
-                  Outcomes in{" "}
-                  <Link href="/texas" passHref>
-                    <MuiLink sx={{ color: "primary.main" }}>Texas</MuiLink>
-                  </Link>
+                  Outcomes in <Link href="/texas">Texas</Link>
                 </Typography>
-                <Typography paragraph>
+                <Typography>
                   Whether someone accused of a crime hires an attorney or is
                   appointed one depends on a lot of factors. The accused may
                   have more money and resources to afford an attorney. For
@@ -142,22 +137,7 @@ export default function Data() {
                   higher proportion of folks accused of DWIs retaining their own
                   attorney.
                 </Typography>
-                <Link href="/data/outcomes" passHref>
-                  <MuiLink
-                    sx={{
-                      color: "primary.main",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      mt: 2,
-                      textDecoration: "none",
-                      "&:hover": {
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    → Explore Outcome Data
-                  </MuiLink>
-                </Link>
+                <Link href="/data/outcomes">→ Explore Outcome Data</Link>
               </Paper>
             </Grid>
           </Grid>
@@ -167,7 +147,7 @@ export default function Data() {
           <Typography variant="h4" component="h2" gutterBottom>
             Data Methodology
           </Typography>
-          <Typography paragraph>
+          <Typography>
             Our data is collected from various sources, including court records,
             public defender offices, and government agencies. We employ rigorous
             validation processes to ensure the accuracy and reliability of our
@@ -183,7 +163,7 @@ export default function Data() {
           <Typography variant="h4" component="h2" gutterBottom>
             Data Downloads
           </Typography>
-          <Typography paragraph>
+          <Typography>
             We provide access to our raw data for researchers, policymakers, and
             other interested parties. All data is anonymized to protect the
             privacy of individuals while still providing valuable insights into
@@ -198,7 +178,7 @@ export default function Data() {
                 <Typography variant="h6" component="h3" gutterBottom>
                   Caseload Data (2023)
                 </Typography>
-                <Typography variant="body2" paragraph>
+                <Typography variant="body2">
                   CSV file containing caseload data for all counties in Texas
                   for the year 2023.
                 </Typography>
@@ -215,7 +195,7 @@ export default function Data() {
                 <Typography variant="h6" component="h3" gutterBottom>
                   Outcome Data (2023)
                 </Typography>
-                <Typography variant="body2" paragraph>
+                <Typography variant="body2">
                   CSV file containing case outcome data for all counties in
                   Texas for the year 2023.
                 </Typography>
@@ -232,7 +212,7 @@ export default function Data() {
                 <Typography variant="h6" component="h3" gutterBottom>
                   Complete Dataset (2021-2023)
                 </Typography>
-                <Typography variant="body2" paragraph>
+                <Typography variant="body2">
                   ZIP file containing all data collected from 2021 to 2023,
                   including caseloads, outcomes, and more.
                 </Typography>
@@ -248,7 +228,7 @@ export default function Data() {
           <Typography variant="h4" component="h2" gutterBottom>
             Data Visualizations
           </Typography>
-          <Typography paragraph>
+          <Typography>
             Our interactive visualizations allow you to explore the data in a
             more intuitive way. You can filter by county, year, case type, and
             more to gain insights into specific aspects of the public defense

@@ -1,15 +1,9 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Link as MuiLink,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Typography, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const Footer = () => {
   return (
@@ -68,56 +62,62 @@ const Footer = () => {
               Quick Links
             </Typography>
             <Stack spacing={1}>
-              <Link href="/about" passHref>
-                <MuiLink
-                  sx={{
-                    opacity: 0.9,
-                    textDecoration: "none",
-                    display: "block",
-                    fontSize: "0.9rem",
-                    transition: "opacity 0.2s ease",
-                    "&:hover": {
-                      opacity: 1,
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  About Us
-                </MuiLink>
+              <Link
+                component={Link}
+                href="/about"
+                passHref
+                sx={{
+                  color: "common.white",
+                  opacity: 0.9,
+                  textDecoration: "none",
+                  display: "block",
+                  fontSize: "0.9rem",
+                  transition: "opacity 0.2s ease",
+                  "&:hover": {
+                    opacity: 1,
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                About Us
               </Link>
-              <Link href="/data" passHref>
-                <MuiLink
-                  sx={{
-                    opacity: 0.9,
-                    textDecoration: "none",
-                    display: "block",
-                    fontSize: "0.9rem",
-                    transition: "opacity 0.2s ease",
-                    "&:hover": {
-                      opacity: 1,
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  Data
-                </MuiLink>
+              <Link
+                component={Link}
+                href="/data"
+                passHref
+                sx={{
+                  color: "common.white",
+                  opacity: 0.9,
+                  textDecoration: "none",
+                  display: "block",
+                  fontSize: "0.9rem",
+                  transition: "opacity 0.2s ease",
+                  "&:hover": {
+                    opacity: 1,
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                Data
               </Link>
-              <Link href="/contact" passHref>
-                <MuiLink
-                  sx={{
-                    opacity: 0.9,
-                    textDecoration: "none",
-                    display: "block",
-                    fontSize: "0.9rem",
-                    transition: "opacity 0.2s ease",
-                    "&:hover": {
-                      opacity: 1,
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  Contact
-                </MuiLink>
+              <Link
+                component={Link}
+                href="/contact"
+                passHref
+                sx={{
+                  color: "common.white",
+                  opacity: 0.9,
+                  textDecoration: "none",
+                  display: "block",
+                  fontSize: "0.9rem",
+                  transition: "opacity 0.2s ease",
+                  "&:hover": {
+                    opacity: 1,
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                Contact
               </Link>
             </Stack>
           </Grid>

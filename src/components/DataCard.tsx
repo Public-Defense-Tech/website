@@ -1,6 +1,6 @@
 import React from "react";
-import { Paper, Typography, Link as MuiLink } from "@mui/material";
-import Link from "next/link";
+import { Paper, Typography } from "@mui/material";
+import Link from "./Link";
 
 interface DataCardProps {
   title: string;
@@ -61,10 +61,12 @@ const DataCard: React.FC<DataCardProps> = ({
         {title}
       </Typography>
       {children}
-      <Link href={linkHref} passHref>
-        <MuiLink sx={isDark ? darkLinkStyle : lightLinkStyle}>
-          → {linkText}
-        </MuiLink>
+      <Link
+        href={linkHref}
+        passHref
+        sx={isDark ? darkLinkStyle : lightLinkStyle}
+      >
+        → {linkText}
       </Link>
     </Paper>
   );
