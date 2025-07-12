@@ -2,10 +2,22 @@
   "name": "website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "sb": "supabase",
+    "sb:login": "supabase login",
+    "sb:start": "supabase start",
+    "sb:stop": "supabase stop",
+    "sb:status": "supabase status",
+    "sb:db:push": "supabase db push",
+    "sb:db:pull": "supabase db pull",
+    "sb:db:reset": "supabase db reset",
+    "sb:gen": "tsx src/utils/supabase/genTypes.ts",
     "lint": "next lint",
     "lint:fix": "next lint --fix"
   },
@@ -16,18 +28,24 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.5",
     "@mui/material-nextjs": "^6.4.3",
-    "next": "15.1.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.50.5",
+    "next": "^15.3.5",
+    "@next/env": "^15.3.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/eslintrc": "^3.3.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.2.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "eslint-plugin-import": "^2.31.0",
+    "supabase": "^2.30.4",
+    "tsx": "^4.20.3",
     "typescript": "^5.7.3"
   }
 }
