@@ -28,7 +28,6 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.5",
     "@mui/material-nextjs": "^6.4.3",
-    "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.5",
     "next": "^15.3.5",
     "@next/env": "^15.3.5",
