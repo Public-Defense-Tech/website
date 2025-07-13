@@ -34,3 +34,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment variables
+
+This project queries Supabase **only from the server** (no browser SDK). You must supply
+two values in a `.env.local` file at the project root:
+
+```bash
+# .env.local
+SUPABASE_PROJECT_URL="https://<your-project-id>.supabase.co"
+SUPABASE_ANON_KEY="<your-anon-key>"
+```
+
+For convenience we ship an `.env.example` file—copy it and fill in your credentials:
+
+```bash
+cp .env.example .env.local
+# then edit .env.local and add real values
+```
+
+Run `npm run dev` afterwards and visit `/api/ping` to verify the connection.
