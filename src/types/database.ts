@@ -7,10 +7,10 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   public: {
     Tables: {
@@ -125,21 +125,7 @@ export type Database = {
             foreignKeyName: "charge_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "charge_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "charge_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
@@ -186,21 +172,7 @@ export type Database = {
             foreignKeyName: "defendant_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: true
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "defendant_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: true
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "defendant_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: true
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
@@ -235,21 +207,7 @@ export type Database = {
             foreignKeyName: "defenseattorney_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "defenseattorney_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "defenseattorney_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
@@ -281,21 +239,7 @@ export type Database = {
             foreignKeyName: "disposition_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "disposition_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "disposition_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
@@ -356,21 +300,7 @@ export type Database = {
             foreignKeyName: "event_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "event_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "event_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
@@ -396,24 +326,49 @@ export type Database = {
             foreignKeyName: "relatedcase_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: false
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "relatedcase_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
             referencedRelation: "casemetadata"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "relatedcase_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: false
-            referencedRelation: "cases"
-            referencedColumns: ["id"]
-          },
         ]
+      }
+      scrapemetadata: {
+        Row: {
+          county: string | null
+          created_at: string
+          date_time_end: string | null
+          date_time_start: string | null
+          ending_case_id_num: number | null
+          ending_case_type: string | null
+          ending_cause_num: string | null
+          ending_year: number | null
+          id: number
+          starting_cause_num: string | null
+        }
+        Insert: {
+          county?: string | null
+          created_at?: string
+          date_time_end?: string | null
+          date_time_start?: string | null
+          ending_case_id_num?: number | null
+          ending_case_type?: string | null
+          ending_cause_num?: string | null
+          ending_year?: number | null
+          id?: number
+          starting_cause_num?: string | null
+        }
+        Update: {
+          county?: string | null
+          created_at?: string
+          date_time_end?: string | null
+          date_time_start?: string | null
+          ending_case_id_num?: number | null
+          ending_case_type?: string | null
+          ending_cause_num?: string | null
+          ending_year?: number | null
+          id?: number
+          starting_cause_num?: string | null
+        }
+        Relationships: []
       }
       stateinformation: {
         Row: {
@@ -439,91 +394,44 @@ export type Database = {
             foreignKeyName: "stateinformation_case_id_fkey"
             columns: ["case_id"]
             isOneToOne: true
-            referencedRelation: "case_details_view"
-            referencedColumns: ["case_id"]
-          },
-          {
-            foreignKeyName: "stateinformation_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: true
             referencedRelation: "casemetadata"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "stateinformation_case_id_fkey"
-            columns: ["case_id"]
-            isOneToOne: true
-            referencedRelation: "cases"
             referencedColumns: ["id"]
           },
         ]
       }
     }
     Views: {
-      case_details_view: {
+      v_hays_attorney_caseload: {
         Row: {
-          case_id: number | null
-          case_type: string | null
-          charge: string | null
-          charge_date: string | null
-          charge_desc: string | null
-          charge_id: number | null
-          charge_level: string | null
-          charge_name: string | null
-          county_of_jurisdiction: string | null
-          date_filed: string | null
-          defendant_race: string | null
-          defendant_sex: string | null
-          defense_attorney_name: string | null
-          defense_attorney_type: string | null
-          dismissed_charges_count: number | null
-          disposition_date: string | null
-          disposition_event: string | null
-          has_evidence_of_representation: boolean | null
-          is_primary_charge: boolean | null
-          judicial_officer: string | null
-          location: string | null
-          offense_category_desc: string | null
-          offense_type_desc: string | null
-          original_charge: string | null
-          outcome: string | null
-          parsing_date: string | null
-          prosecuting_attorney_name: string | null
-          statute: string | null
-          top_charge_level: string | null
-          top_charge_name: string | null
-          uccs_code: string | null
+          attorney_hash: string | null
+          attorney_name: string | null
+          cases: number | null
+          year: number | null
         }
         Relationships: []
       }
-      cases: {
+      v_hays_attorney_caseload_latest: {
         Row: {
-          case_name: string | null
-          case_type: string | null
-          county_of_jurisdiction: string | null
-          court_case_number: string | null
-          court_case_number_hashed: string | null
-          date_filed: string | null
-          dismissed_charges_count: number | null
-          good_motions: string | null
-          has_evidence_of_representation: boolean | null
-          html_hash: string | null
-          id: number | null
-          location: string | null
-          odyssey_id: string | null
-          parsing_date: string | null
-          rn: number | null
-          top_charge_level: string | null
-          top_charge_name: string | null
-          version: number | null
+          attorney_hash: string | null
+          attorney_name: string | null
+          cases: number | null
+          year: number | null
         }
         Relationships: []
       }
     }
     Functions: {
+      display_attorney: {
+        Args: { hash: string; name: string }
+        Returns: string
+      }
       truncate_all_tables: {
         Args: { schema_name?: string }
         Returns: undefined
+      }
+      try_parse_date: {
+        Args: { d: string }
+        Returns: string
       }
     }
     Enums: {
