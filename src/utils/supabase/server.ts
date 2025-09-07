@@ -15,13 +15,13 @@ let supabase: SupabaseClient<Database> | null = null;
 export function createClient() {
   if (supabase) return supabase;
 
-  if (!process.env.SUPABASE_PROJECT_URL || !process.env.SUPABASE_ANON_KEY) {
+  if (!process.env.SUPABASE_PROJECT_URL || !process.env.SUPABASE_SERVICE_ROLE) {
     throw new Error("Missing Supabase environment variables");
   }
 
   supabase = createSupabaseClient<Database>(
     process.env.SUPABASE_PROJECT_URL,
-    process.env.SUPABASE_ANON_KEY
+    process.env.SUPABASE_SERVICE_ROLE
   );
 
   return supabase;
