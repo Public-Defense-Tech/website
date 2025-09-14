@@ -69,7 +69,7 @@ export default function Data() {
           </Paper>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -114,7 +114,7 @@ export default function Data() {
                 </Link>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -170,7 +170,7 @@ export default function Data() {
             systemic patterns.
           </Typography>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={0}
                 sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
@@ -187,7 +187,7 @@ export default function Data() {
                 </Button>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={0}
                 sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
@@ -204,7 +204,7 @@ export default function Data() {
                 </Button>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={0}
                 sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
@@ -235,7 +235,7 @@ export default function Data() {
             system in Texas.
           </Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={1}
                 sx={{
@@ -253,7 +253,7 @@ export default function Data() {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={1}
                 sx={{

@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography, Stack } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 
 // Import our new components
 import HeroSection from "@/components/HeroSection";

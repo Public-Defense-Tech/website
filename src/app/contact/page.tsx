@@ -37,7 +37,7 @@ export default function Contact() {
         </Box>
 
         <Grid container spacing={6} sx={{ mb: 8 }}>
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Typography variant="h4" component="h2" gutterBottom>
               Get In Touch
             </Typography>
@@ -79,14 +79,14 @@ export default function Contact() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, md: 7 }}>
             <Paper elevation={0} sx={{ p: 4, borderRadius: 2 }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Send Us a Message
               </Typography>
               <form>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       required
                       fullWidth
@@ -94,7 +94,7 @@ export default function Contact() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       required
                       fullWidth
@@ -102,7 +102,7 @@ export default function Contact() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       required
                       fullWidth
@@ -111,7 +111,7 @@ export default function Contact() {
                       type="email"
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       required
                       fullWidth
@@ -119,7 +119,7 @@ export default function Contact() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       required
                       fullWidth
@@ -129,7 +129,7 @@ export default function Contact() {
                       rows={4}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <Button
                       type="submit"
                       variant="contained"
@@ -159,7 +159,7 @@ export default function Contact() {
             sx={{ p: 4, borderRadius: 2, bgcolor: "#F5F5F5" }}
           >
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={8}>
+              <Grid size={{ xs: 12, md: 8 }}>
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -167,7 +167,7 @@ export default function Contact() {
                   placeholder="Enter your email address"
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Button
                   fullWidth
                   variant="contained"
@@ -186,7 +186,7 @@ export default function Contact() {
             Frequently Asked Questions
           </Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box sx={{ mb: 3 }}>
                 <Typography variant="h6" component="h3" gutterBottom>
                   How can I use your data in my research?
@@ -211,7 +211,7 @@ export default function Contact() {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box sx={{ mb: 3 }}>
                 <Typography variant="h6" component="h3" gutterBottom>
                   How can I support your work?

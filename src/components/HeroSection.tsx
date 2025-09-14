@@ -5,7 +5,7 @@ import {
   Typography,
   Button,
   Divider,
-  Grid2,
+  Grid,
 } from "@mui/material";
 import Link from "@/components/Link";
 import Image from "next/image";
@@ -103,7 +103,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             {subtitle}
           </Typography>
 
-          <Grid2
+          <Grid
             columns={{ xs: 1, md: 3 }}
             container
             spacing={4}
@@ -167,7 +167,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             >
               → {ctaText}
             </Button>
-          </Grid2>
+          </Grid>
         </Box>
       </Container>
     </Box>
