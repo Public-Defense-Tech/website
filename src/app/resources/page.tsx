@@ -60,7 +60,7 @@ export default function Resources() {
           </Paper>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ borderRadius: 2, height: "100%", overflow: "hidden" }}
@@ -94,7 +94,7 @@ export default function Resources() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ borderRadius: 2, height: "100%", overflow: "hidden" }}
@@ -128,7 +128,7 @@ export default function Resources() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ borderRadius: 2, height: "100%", overflow: "hidden" }}
@@ -176,7 +176,7 @@ export default function Resources() {
           </Typography>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper elevation={1} sx={{ p: 3, borderRadius: 2 }}>
                 <Typography variant="h5" component="h3" gutterBottom>
                   The State of Public Defense in Texas: 2023 Report
@@ -192,7 +192,7 @@ export default function Resources() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper elevation={1} sx={{ p: 3, borderRadius: 2 }}>
                 <Typography variant="h5" component="h3" gutterBottom>
                   Disparities in Public Defense: A Data-Driven Analysis
@@ -221,7 +221,7 @@ export default function Resources() {
           </Typography>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ p: 3, borderRadius: 2, height: "100%" }}
@@ -240,7 +240,7 @@ export default function Resources() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ p: 3, borderRadius: 2, height: "100%" }}
@@ -259,7 +259,7 @@ export default function Resources() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Paper
                 elevation={1}
                 sx={{ p: 3, borderRadius: 2, height: "100%" }}
@@ -292,7 +292,7 @@ export default function Resources() {
           </Typography>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box sx={{ mb: 3 }}>
                 <Typography variant="h5" component="h3" gutterBottom>
                   Organizations
@@ -343,7 +343,7 @@ export default function Resources() {
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box>
                 <Typography variant="h5" component="h3" gutterBottom>
                   Publications

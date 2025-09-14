@@ -29,7 +29,7 @@ export default function About() {
         </Box>
 
         <Grid container spacing={6} sx={{ mb: 8 }}>
-          <Grid item xs={12} md={8}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Typography variant="h4" component="h2" gutterBottom>
               Our Mission
             </Typography>
@@ -50,7 +50,7 @@ export default function About() {
               status.
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Paper
               elevation={0}
               sx={{ p: 3, bgcolor: "#F5F5F5", borderRadius: 2 }}
@@ -95,7 +95,7 @@ export default function About() {
         </Grid>
 
         <Grid container spacing={6} sx={{ mb: 8 }}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Typography variant="h4" component="h2" gutterBottom>
               Our Team
             </Typography>
@@ -107,7 +107,7 @@ export default function About() {
               is accessible to both experts and the general public.
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Paper elevation={0} sx={{ p: 3, borderRadius: 2, height: "100%" }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Legal Experts
@@ -119,7 +119,7 @@ export default function About() {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Paper elevation={0} sx={{ p: 3, borderRadius: 2, height: "100%" }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Data Scientists
@@ -131,7 +131,7 @@ export default function About() {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Paper elevation={0} sx={{ p: 3, borderRadius: 2, height: "100%" }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Community Advocates
@@ -146,7 +146,7 @@ export default function About() {
         </Grid>
 
         <Grid container spacing={6} sx={{ mb: 8 }}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Typography variant="h4" component="h2" gutterBottom>
               Our Methodology
             </Typography>
@@ -157,7 +157,7 @@ export default function About() {
               reliable, and useful for driving policy change.
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ mb: 4 }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Data Collection
@@ -180,7 +180,7 @@ export default function About() {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ mb: 4 }}>
               <Typography variant="h5" component="h3" gutterBottom>
                 Data Validation
