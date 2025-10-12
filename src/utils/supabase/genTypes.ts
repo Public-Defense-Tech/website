@@ -15,8 +15,8 @@ loadEnvConfig(projectDir);
  *    - You'll need the following environment variables:
  *      - SUPABASE_PROJECT_ID
  *      - SUPABASE_PROJECT_URL
- *      - SUPABASE_ANON_KEY
- *      - SUPABASE_SERVICE_ROLE_KEY
+ *      - SUPABASE_SERVICE_ROLE
+ *      - SUPABASE_SERVICE_ROLE
  *
  * 2. Run the script:
  *    - npm run sb:gen
