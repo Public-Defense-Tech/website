@@ -9,12 +9,31 @@ import DataCard from "@/components/DataCard";
 import StatCard from "@/components/StatCard";
 import Section from "@/components/Section";
 import ImpactItem from "@/components/ImpactItem";
+import React from "react";
+import { ParentSize } from "@visx/responsive";
+import TexasMap from "@/components/TexasMap";
 
 export default function Home() {
   return (
     <main>
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Texas Map Section */}
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 1200,
+          margin: "2rem auto",
+          minHeight: 300,
+        }}
+      >
+        <ParentSize>
+          {({ width }) => (
+            <TexasMap width={width} height={Math.max(width * 0.6, 300)} />
+          )}
+        </ParentSize>
+      </div>
 
       {/* Data Insights Section */}
       <Section
