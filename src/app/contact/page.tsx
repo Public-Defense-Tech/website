@@ -16,7 +16,7 @@ export default function Contact() {
       <Container maxWidth="lg" sx={{ mt: 4 }}>
         <Box
           sx={{
-            backgroundImage: "url('/images/leaves-bg.jpg')",
+            backgroundImage: "url('/images/leaves-wide.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             color: "white",

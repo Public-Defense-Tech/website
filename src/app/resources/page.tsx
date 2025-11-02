@@ -18,7 +18,7 @@ export default function Resources() {
       <Container maxWidth="lg" sx={{ mt: 4 }}>
         <Box
           sx={{
-            backgroundImage: "url('/images/leaves-bg.jpg')",
+            backgroundImage: "url('/images/leaves-wide.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             color: "common.white",

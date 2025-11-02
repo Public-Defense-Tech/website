@@ -1,277 +1,147 @@
 "use client";
 
+import React from "react";
 import Link from "@/components/Link";
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Paper,
-  Button,
-  Tabs,
-  Tab,
-} from "@mui/material";
+import { Container, Typography, Box, Paper, Divider } from "@mui/material";
+import HeroImageSection from "@/components/HeroImageSection";
+import AttorneyCaseloadCards from "@/components/AttorneyCaseloadCards";
 
 export default function Data() {
   return (
     <main>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Box
-          sx={{
-            backgroundImage: "url('/images/leaves-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            py: 12,
-            textAlign: "center",
-            mb: 8,
-            borderRadius: 2,
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+        {/* Hero Section */}
+        <HeroImageSection
+          title="Texas Defense Data"
+          subtitle="Explore public defense data to understand disparities and drive reform"
+          imageSrc={{
+            mobile: "/images/leaves-tall.jpg",
+            desktop: "/images/leaves-wide.jpg",
           }}
-        >
-          <Container maxWidth="md">
-            <Typography variant="h3" component="h1" gutterBottom>
-              Texas Defense Data
-            </Typography>
-            <Typography variant="h5" component="p">
-              Explore public defense data to understand disparities and drive
-              reform
-            </Typography>
-          </Container>
-        </Box>
+          imageAlt="Natural leaves background"
+        />
 
-        <Box sx={{ mb: 6 }}>
+        {/* Introduction */}
+        <Box sx={{ mb: 6, textAlign: "center" }}>
           <Typography variant="h4" component="h2" gutterBottom>
             Data Overview
           </Typography>
-          <Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ maxWidth: "800px", mx: "auto" }}
+          >
             Our data provides insights into various aspects of the public
             defense system in Texas, including caseloads, outcomes, attorney
-            assignments, and more. By exploring this data, you can gain a better
-            understanding of the challenges faced by public defenders and their
-            clients, as well as identify opportunities for improvement.
-          </Typography>
-          <Typography>
-            We present our data in multiple formats to accommodate different
-            needs and preferences. You can explore interactive visualizations,
-            download raw data for your own analysis, or read our reports that
-            provide context and interpretation of the findings.
+            assignments, and more. Explore the visualizations below to
+            understand the challenges faced by public defenders and their
+            clients.
           </Typography>
         </Box>
 
+        {/* Attorney Workload - Year by Year Cards */}
+        <Box sx={{ mb: 8 }}>
+          <AttorneyCaseloadCards />
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Future Visualizations Section - Placeholder Structure */}
         <Box sx={{ mb: 6 }}>
-          <Paper sx={{ p: 2, mb: 4 }}>
-            <Tabs value={0} aria-label="data categories">
-              <Tab label="All Data" />
-              <Tab label="Caseloads" />
-              <Tab label="Outcomes" />
-              <Tab label="Demographics" />
-              <Tab label="Resources" />
-            </Tabs>
+          <Typography variant="h5" component="h3" gutterBottom>
+            Attorney-Level Analysis
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            Detailed case assignments and dispositions by attorney. (Coming
+            soon)
+          </Typography>
+
+          {/* Placeholder for future table/card visualizations */}
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              textAlign: "center",
+              bgcolor: "grey.50",
+              borderRadius: 2,
+              minHeight: "200px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              Attorney case assignment tables will appear here
+            </Typography>
           </Paper>
-
-          <Grid container spacing={4}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  backgroundColor: "primary.main",
-                  color: "common.white",
-                  p: 4,
-                  borderRadius: 2,
-                  height: "100%",
-                }}
-              >
-                <Typography variant="h5" component="h3" gutterBottom>
-                  Caseloads in{" "}
-                  <Link href="/texas" style={{ color: "white" }}>
-                    Texas
-                  </Link>
-                </Typography>
-                <Typography>
-                  Whether someone accused of a crime hires an attorney or is
-                  appointed one depends on a lot of factors. The accused may
-                  have more money and resources to afford an attorney. For
-                  instance, if more people arrested for driving while
-                  intoxicated charges tend to have a higher income compared to
-                  people charged with other types of crimes, then we would see a
-                  higher proportion of folks accused of DWIs retaining their own
-                  attorney.
-                </Typography>
-                <Link
-                  href="/data/caseloads"
-                  passHref
-                  sx={{
-                    color: "common.white",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    mt: 2,
-                    textDecoration: "none",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  → Explore Caseload Data
-                </Link>
-              </Paper>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  backgroundColor: "grey.100",
-                  p: 4,
-                  borderRadius: 2,
-                  height: "100%",
-                }}
-              >
-                <Typography variant="h5" component="h3" gutterBottom>
-                  Outcomes in <Link href="/texas">Texas</Link>
-                </Typography>
-                <Typography>
-                  Whether someone accused of a crime hires an attorney or is
-                  appointed one depends on a lot of factors. The accused may
-                  have more money and resources to afford an attorney. For
-                  instance, if more people arrested for driving while
-                  intoxicated charges tend to have a higher income compared to
-                  people charged with other types of crimes, then we would see a
-                  higher proportion of folks accused of DWIs retaining their own
-                  attorney.
-                </Typography>
-                <Link href="/data/outcomes">→ Explore Outcome Data</Link>
-              </Paper>
-            </Grid>
-          </Grid>
         </Box>
 
         <Box sx={{ mb: 6 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Data Methodology
+          <Typography variant="h5" component="h3" gutterBottom>
+            Attorney Type Analysis
           </Typography>
-          <Typography>
-            Our data is collected from various sources, including court records,
-            public defender offices, and government agencies. We employ rigorous
-            validation processes to ensure the accuracy and reliability of our
-            data, including cross-referencing multiple sources, conducting
-            consistency checks, and regularly updating our datasets.
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            Cases by attorney type (Public Defender, Appointed, Retained).
+            (Coming soon)
           </Typography>
-          <Button variant="outlined" component={Link} href="/about#methodology">
-            Learn More About Our Methodology
-          </Button>
+
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              textAlign: "center",
+              bgcolor: "grey.50",
+              borderRadius: 2,
+              minHeight: "200px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              Attorney type analysis cards will appear here
+            </Typography>
+          </Paper>
         </Box>
 
         <Box sx={{ mb: 6 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Data Downloads
+          <Typography variant="h5" component="h3" gutterBottom>
+            Case Dispositions
           </Typography>
-          <Typography>
-            We provide access to our raw data for researchers, policymakers, and
-            other interested parties. All data is anonymized to protect the
-            privacy of individuals while still providing valuable insights into
-            systemic patterns.
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            Dismissal rates and case outcomes by attorney. (Coming soon)
           </Typography>
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Paper
-                elevation={0}
-                sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
-              >
-                <Typography variant="h6" component="h3" gutterBottom>
-                  Caseload Data (2023)
-                </Typography>
-                <Typography variant="body2">
-                  CSV file containing caseload data for all counties in Texas
-                  for the year 2023.
-                </Typography>
-                <Button variant="contained" color="secondary" size="small">
-                  Download CSV
-                </Button>
-              </Paper>
-            </Grid>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Paper
-                elevation={0}
-                sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
-              >
-                <Typography variant="h6" component="h3" gutterBottom>
-                  Outcome Data (2023)
-                </Typography>
-                <Typography variant="body2">
-                  CSV file containing case outcome data for all counties in
-                  Texas for the year 2023.
-                </Typography>
-                <Button variant="contained" color="secondary" size="small">
-                  Download CSV
-                </Button>
-              </Paper>
-            </Grid>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Paper
-                elevation={0}
-                sx={{ p: 3, borderRadius: 2, bgcolor: "#F5F5F5" }}
-              >
-                <Typography variant="h6" component="h3" gutterBottom>
-                  Complete Dataset (2021-2023)
-                </Typography>
-                <Typography variant="body2">
-                  ZIP file containing all data collected from 2021 to 2023,
-                  including caseloads, outcomes, and more.
-                </Typography>
-                <Button variant="contained" color="secondary" size="small">
-                  Download ZIP
-                </Button>
-              </Paper>
-            </Grid>
-          </Grid>
+
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              textAlign: "center",
+              bgcolor: "grey.50",
+              borderRadius: 2,
+              minHeight: "200px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              Disposition analysis tables will appear here
+            </Typography>
+          </Paper>
         </Box>
 
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Data Visualizations
+        <Divider sx={{ my: 6 }} />
+
+        {/* Methodology Link */}
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="body2" color="text.secondary">
+            For information about our data collection and validation processes,{" "}
+            <Link href="/about#methodology">
+              learn more about our methodology
+            </Link>
+            .
           </Typography>
-          <Typography>
-            Our interactive visualizations allow you to explore the data in a
-            more intuitive way. You can filter by county, year, case type, and
-            more to gain insights into specific aspects of the public defense
-            system in Texas.
-          </Typography>
-          <Grid container spacing={4}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 3,
-                  borderRadius: 2,
-                  height: "300px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography variant="h6" color="text.secondary">
-                  Caseload Visualization (Interactive chart will be displayed
-                  here)
-                </Typography>
-              </Paper>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 3,
-                  borderRadius: 2,
-                  height: "300px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography variant="h6" color="text.secondary">
-                  Outcome Visualization (Interactive chart will be displayed
-                  here)
-                </Typography>
-              </Paper>
-            </Grid>
-          </Grid>
         </Box>
       </Container>
     </main>
