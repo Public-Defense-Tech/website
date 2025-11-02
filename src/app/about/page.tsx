@@ -1,32 +1,21 @@
 "use client";
 
 import { Container, Typography, Box, Grid, Paper } from "@mui/material";
+import HeroImageSection from "@/components/HeroImageSection";
 
 export default function About() {
   return (
     <main>
       <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Box
-          sx={{
-            backgroundImage: "url('/images/leaves-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            color: "white",
-            py: "6rem",
-            textAlign: "center",
-            mb: "4rem",
-            borderRadius: "8px",
+        <HeroImageSection
+          title="About Texas Defense Data"
+          subtitle="Making public defense data accessible to drive meaningful reform"
+          imageSrc={{
+            mobile: "/images/leaves-tall.jpg",
+            desktop: "/images/leaves-wide.jpg",
           }}
-        >
-          <Container maxWidth="md">
-            <Typography variant="h3" component="h1" gutterBottom>
-              About Texas Defense Data
-            </Typography>
-            <Typography variant="h5" component="p">
-              Making public defense data accessible to drive meaningful reform
-            </Typography>
-          </Container>
-        </Box>
+          imageAlt="Natural leaves background"
+        />
 
         <Grid container spacing={6} sx={{ mb: 8 }}>
           <Grid size={{ xs: 12, md: 8 }}>
