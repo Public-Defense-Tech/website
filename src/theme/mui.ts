@@ -1,14 +1,6 @@
 "use client";
 import { createTheme } from "@mui/material/styles";
-import { EB_Garamond as EB_Garamond_Font } from "next/font/google";
 import { themeDefinition } from "./definition";
-
-// Load Google Font (EB Garamond)
-const ebGaramond = EB_Garamond_Font({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
 
 // Create the MUI theme
 const theme = createTheme({
@@ -16,13 +8,16 @@ const theme = createTheme({
   typography: {
     fontFamily: "Standard Book, Arial, sans-serif", // Default body font
     h1: {
-      fontFamily: ebGaramond.style.fontFamily, // Google Font for headers
+      fontFamily: "Geist, Arial, sans-serif",
+      fontWeight:500,
     },
     h2: {
-      fontFamily: ebGaramond.style.fontFamily,
+      fontFamily: "Geist, Arial, sans-serif",
+      fontWeight:500,
     },
     h3: {
-      fontFamily: ebGaramond.style.fontFamily,
+      fontFamily: "Geist, Arial, sans-serif",
+      fontWeight:500,
     },
     h4: {
       fontFamily: "Standard Book, Arial, sans-serif",
@@ -75,6 +70,11 @@ const theme = createTheme({
       styleOverrides: {
         "@global": {
           "@font-face": [
+            {
+            fontFamily: "Geist", 
+            fontWeight: 600,
+            fontStyle: "normal", 
+            },
             {
               fontFamily: "Standard Book",
               src: `url('/fonts/standard-book-webfont.woff2') format('woff2'),

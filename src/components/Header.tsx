@@ -19,59 +19,59 @@ const Header = () => {
           <Link
             href="/"
             style={{
-              fontWeight: 600,
+              fontWeight: 500,
               fontSize: "1.25rem",
-              color: "#E2F0EA",
+              color: "#96BBDE",
               textDecoration: "none",
             }}
           >
             Texas Defense Data
           </Link>
 
-          <Stack direction="row" spacing={3}>
+          <Stack direction="row" spacing={4}>
+            <Link
+              href="/insights"
+              style={{
+                color: "#96BBDE",
+                textDecoration: "none",
+                fontWeight: 500,
+                opacity: 0.9,
+              }}
+            >
+              Insights
+            </Link>
+            <Link
+              href="/data"
+              style={{
+                color: "#96BBDE",
+                textDecoration: "none",
+                fontWeight: 500,
+                opacity: 0.9,
+              }}
+            >
+              State Data
+            </Link>
+            <Link
+              href="/projects"
+              style={{
+                color: "#96BBDE",
+                textDecoration: "none",
+                fontWeight: 500,
+                opacity: 0.9,
+              }}
+            >
+              Projects
+            </Link>
             <Link
               href="/about"
               style={{
-                color: "#E2F0EA",
+                color: "#96BBDE",
                 textDecoration: "none",
                 fontWeight: 500,
                 opacity: 0.9,
               }}
             >
               About
-            </Link>
-            <Link
-              href="/data"
-              style={{
-                color: "#E2F0EA",
-                textDecoration: "none",
-                fontWeight: 500,
-                opacity: 0.9,
-              }}
-            >
-              Data
-            </Link>
-            <Link
-              href="/resources"
-              style={{
-                color: "#E2F0EA",
-                textDecoration: "none",
-                fontWeight: 500,
-                opacity: 0.9,
-              }}
-            >
-              Resources
-            </Link>
-            <Link
-              href="/contact"
-              style={{
-                color: "#E2F0EA",
-                textDecoration: "none",
-                fontWeight: 500,
-                opacity: 0.9,
-              }}
-            >
-              Contact
             </Link>
           </Stack>
         </Toolbar>

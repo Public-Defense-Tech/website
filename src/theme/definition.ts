@@ -2,18 +2,18 @@
 export const themeDefinition = {
   palette: {
     primary: {
-      // #082D2A - Dark green primary color
-      main: "#082D2A",
+      // #2A4969 - Dark Blue primary color
+      main: "#2A4969",
 
-      // #B1D4B9 - Lighter variant of primary color
-      light: "#B1D4B9",
+      // #619BBF - Lighter variant of primary color
+      light: "#619BBF",
 
-      // #0A2A22 - Darker variant of primary color
-      dark: "#0A2A22",
+      // #0A1C21 - Iron, Darker variant of primary color
+      dark: "#0A1C21",
     },
     secondary: {
-      // #D95D39 - Orange secondary color
-      main: "#D95D39",
+      // #DC4D19 - Orange secondary color
+      main: "#DC4D19",
 
       // #E79780 - Lighter variant of secondary color
       light: "#E79780",
@@ -29,8 +29,8 @@ export const themeDefinition = {
       black: "#0f0f0f",
     },
     grey: {
-      // #F5F5F5 - Very light grey
-      100: "#F5F5F5",
+      // #F0F7F2 - Very light grey
+      100: "#F0F7F2",
 
       // #EEEEEE - Light grey
       200: "#EEEEEE",
