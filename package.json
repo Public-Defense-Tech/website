@@ -31,7 +31,7 @@
     "@mui/x-charts": "^8.16.0",
     "@next/env": "^15.5.3",
     "@supabase/supabase-js": "^2.57.4",
-    "next": "^15.5.3",
+    "next": "15.5.9",
     "react-dom": "^19.1.1",
     "react": "^19.1.1"
   },
