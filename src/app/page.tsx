@@ -30,9 +30,7 @@ export default function Home() {
             isDark={true}
           >
             <Typography component="p">
-              Whether someone accused of a crime hires an attorney or is
-              appointed one depends on a lot of factors. The accused may have
-              more money and resources to afford an attorney.
+              Every year, thousands of Texans face criminal charges without proper legal representation. The public defenders who serve them are under-resourced, overworked, and systemically unsupported.
             </Typography>
           </DataCard>
         </Grid>

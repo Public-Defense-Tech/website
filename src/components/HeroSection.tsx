@@ -21,7 +21,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({
   title = "Texas Defense Data",
-  subtitle = "The only site for publicly available indigent defense data.",
+  subtitle = "Every year, thousands of Texans face criminal charges without proper legal representation. The public defenders who serve them are under-resourced, overworked, and systemically unsupported.",
   leftText = "What is Texas Defense Data?",
   rightText = "Impacts of Public Defense Data",
   ctaText = "Explore the Data",
