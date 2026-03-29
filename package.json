@@ -30,7 +30,7 @@
     "@mui/material": "^7.3.4",
     "@mui/x-charts": "^8.16.0",
     "@next/env": "^15.5.3",
-    "@supabase/supabase-js": "^2.57.4",
+    "@supabase/supabase-js": "^2.100.1",
     "next": "15.5.9",
     "react-dom": "^19.1.1",
     "react": "^19.1.1"
@@ -44,7 +44,7 @@
     "eslint-config-next": "15.1.7",
     "eslint-plugin-import": "^2.31.0",
     "eslint": "^9",
-    "supabase": "^2.40.7",
+    "supabase": "^2.84.4",
     "tsx": "^4.20.5",
     "typescript": "^5.7.3"
   }

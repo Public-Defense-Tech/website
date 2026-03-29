@@ -37,20 +37,51 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Environment variables
 
-This project queries Supabase **only from the server** (no browser SDK). You must supply
-two values in a `.env.local` file at the project root:
+This project queries Supabase **only from the server** (no browser SDK). The server client
+in `src/utils/supabase/server.ts` uses the **service role** key so API routes can read
+data without per-user auth. Add a `.env.local` file at the project root:
 
 ```bash
 # .env.local
-SUPABASE_PROJECT_URL="https://<your-project-id>.supabase.co"
-SUPABASE_ANON_KEY="<your-anon-key>"
+SUPABASE_PROJECT_URL="https://<project-ref>.supabase.co"
+SUPABASE_SERVICE_ROLE="<your-service-role-key>"
+# Used only by `pnpm run sb:gen` (TypeScript types from the hosted project)
+SUPABASE_PROJECT_ID="<project-ref>"
 ```
 
-For convenience we ship an `.env.example` file—copy it and fill in your credentials:
+The project ref is the same substring that appears in the dashboard URL and in your
+project URL (`https://<project-ref>.supabase.co`).
+
+Copy `env.example` to `.env.local` and fill in real values:
 
 ```bash
-cp .env.example .env.local
-# then edit .env.local and add real values
+cp env.example .env.local
 ```
 
-Run `npm run dev` afterwards and visit `/api/ping` to verify the connection.
+Run `pnpm dev` (or `npm run dev`) and visit `/api/ping` to verify the connection.
+
+## Generating TypeScript types (`src/types/database.ts`)
+
+After the database schema changes, regenerate types so `Database` stays in sync with
+PostgREST.
+
+**Prerequisites:** the `supabase` CLI is a dev dependency. You must be logged in once
+so the CLI can talk to the Supabase API (`gen types` uses your CLI session, not the
+service role key).
+
+```bash
+pnpm run sb:login   # opens the browser once; stores a token for the CLI
+pnpm run sb:gen     # requires SUPABASE_PROJECT_ID in .env.local
+```
+
+That runs `supabase gen types --lang typescript --project-id <project-ref>` and
+overwrites **`src/types/database.ts`** (the `Database` type used by
+`src/utils/supabase/server.ts`).
+
+**Without the CLI:** if you use the Supabase MCP in Cursor, the `generate_typescript_types`
+tool accepts your `project_id` and returns the same TypeScript; save that output as
+`src/types/database.ts`.
+
+Other Supabase CLI shortcuts are in `package.json` (`sb:start`, `sb:db:pull`, etc.) for
+when you adopt local Docker workflows; this repo does not ship a `supabase/` config
+directory yet, so type generation is remote-project based.
