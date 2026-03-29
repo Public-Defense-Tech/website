@@ -1,28 +1,18 @@
 import { execSync } from "node:child_process";
 import { loadEnvConfig } from "@next/env";
 import path from "node:path";
-import { existsSync, mkdirSync } from "node:fs";
-
-const projectDir = process.cwd();
-loadEnvConfig(projectDir);
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 
 /**
- * This script generates the types for the Supabase database.
+ * Generates `src/types/database.ts` via the Supabase CLI against the hosted project.
  *
- * Requirements:
- * 1. The supabase project to be created and the .env.local file to be present in the root of the project.
- *    - The supabase project should be created in the supabase dashboard.
- *    - You'll need the following environment variables:
- *      - SUPABASE_PROJECT_ID
- *      - SUPABASE_PROJECT_URL
- *      - SUPABASE_SERVICE_ROLE
- *      - SUPABASE_SERVICE_ROLE
+ * Requires:
+ * - `SUPABASE_PROJECT_ID` in `.env.local` (project ref from the dashboard URL).
+ * - Supabase CLI installed (devDependency) and authenticated: `pnpm run sb:login`.
  *
- * 2. Run the script:
- *    - npm run sb:gen
+ * Run: `pnpm run sb:gen`
  *
- * 3. The types will be generated in the src/types/database.ts file.
- *
+ * Note: `supabase gen types` uses the CLI login session, not API keys from env.
  */
 function main() {
   const projectDir = process.cwd();
@@ -38,16 +28,22 @@ function main() {
 
   const projectId = process.env.SUPABASE_PROJECT_ID;
 
-  console.log("projectId: ", projectId);
   if (!projectId) {
     throw new Error("SUPABASE_PROJECT_ID is not set");
   }
 
-  // This requires the supabase CLI to be installed and logged in
-  // Use proper quoting for the file path to handle spaces and special characters
-  const cmd = `supabase gen types --lang typescript --project-id ${projectId} > "${targetFile}"`;
-  console.log(cmd);
-  execSync(cmd);
+  if (!/^[a-z\d-]+$/i.test(projectId)) {
+    throw new Error("SUPABASE_PROJECT_ID has unexpected characters");
+  }
+
+  const types = execSync(
+    `supabase gen types --lang typescript --project-id ${projectId}`,
+    { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 },
+  );
+
+  writeFileSync(targetFile, types, "utf8");
+
+  console.log(`Wrote ${targetFile}`);
 }
 
 main();
