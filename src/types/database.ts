@@ -1036,6 +1036,48 @@ export type Database = {
           },
         ]
       }
+      county_per_capita_spending: {
+        Row: {
+          County: string | null
+          county_slug: string | null
+          net_per_capita_spending: number | null
+          total_net_expenditure: number | null
+        }
+        Insert: {
+          County?: string | null
+          county_slug?: never
+          net_per_capita_spending?: never
+          total_net_expenditure?: never
+        }
+        Update: {
+          County?: string | null
+          county_slug?: never
+          net_per_capita_spending?: never
+          total_net_expenditure?: never
+        }
+        Relationships: []
+      }
+      county_year_disposition_summary: {
+        Row: {
+          county_id: number | null
+          total_disposed_felonies: number | null
+          total_disposed_misdemeanors: number | null
+          total_felony_convictions: number | null
+          total_felony_dismissals: number | null
+          total_misdemeanor_convictions: number | null
+          total_misdemeanor_dismissals: number | null
+          year: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "court_activity_county_id_fkey"
+            columns: ["county_id"]
+            isOneToOne: false
+            referencedRelation: "counties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       court_activity_named: {
         Row: {
           county: string | null
@@ -1218,6 +1260,17 @@ export type Database = {
       display_attorney: {
         Args: { hash: string; name: string }
         Returns: string
+      }
+      get_county_court_stats: {
+        Args: { target_county_id: number; target_year: number }
+        Returns: {
+          total_disposed_felonies: number
+          total_disposed_misdemeanors: number
+          total_felony_convictions: number
+          total_felony_dismissals: number
+          total_misdemeanor_convictions: number
+          total_misdemeanor_dismissals: number
+        }[]
       }
       truncate_all_tables: {
         Args: { schema_name?: string }
