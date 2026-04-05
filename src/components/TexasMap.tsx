@@ -23,7 +23,6 @@ import {
 } from "@mui/material";
 import {
   X,
-  Gavel,
   Scale,
   FileCheck,
   FileX,
@@ -113,6 +112,9 @@ const StatCard = ({ title, value, icon: Icon, color }: any) => (
 );
 
 export default function InteractiveTexasDashboard() {
+  // --- VERCEL OVERRIDE: MOUNTED CHECK ---
+  const [isMounted, setIsMounted] = useState(false);
+  
   const [selectedData, setSelectedData] = useState<any>(null);
   const [systemMap, setSystemMap] = useState<Record<string, string[]> | null>(
     null,
@@ -125,6 +127,7 @@ export default function InteractiveTexasDashboard() {
   const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
+    setIsMounted(true);
     let cancelled = false;
 
     async function initMap() {
@@ -255,6 +258,11 @@ export default function InteractiveTexasDashboard() {
       setIsActionLoading(false);
     }
   };
+
+  // If we aren't mounted (SSR phase), render a shell to avoid window errors
+  if (!isMounted) {
+    return <Box sx={{ height: 600, display: "flex", alignItems: "center", justifyContent: "center" }}><CircularProgress /></Box>;
+  }
 
   return (
     <Box

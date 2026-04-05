@@ -1,209 +1,194 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { 
-  Box, Paper, Typography, IconButton, Grid, 
-  CircularProgress, Chip, Stack, Divider, Card, CardContent 
-} from "@mui/material";
-import { X, Scale, FileCheck, FileX, Calendar, DollarSign, Users } from "lucide-react";
-import { createClient } from "@/utils/supabase/client";
+import React from "react";
+import { Typography, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid2"; // Note: MUI recommends Grid2 for the latest versions
 
-// --- HELPERS ---
-const cleanKey = (name: string) => name.toUpperCase().replace(/\s*COUNTY$/i, "").trim();
+// Import our new components
+import HeroSection from "@/components/HeroSection";
+import DataCard from "@/components/DataCard";
+import StatCard from "@/components/StatCard";
+import Section from "@/components/Section";
+import ImpactItem from "@/components/ImpactItem";
 
-const getCountyColor = (systems: string[] = []) => {
-  if (!systems || systems.length === 0) return "#f8fafc";
-  if (systems.length > 1) return "#6366f1"; 
-  const type = systems[0]?.toLowerCase() || "";
-  if (type.includes("regional")) return "#0ea5e9";
-  if (type.includes("public defender")) return "#1976d2";
-  if (type.includes("managed assigned counsel") || type.includes("mac")) return "#8b5cf6";
-  return "#94a3b8";
-};
-
-const StatCard = ({ title, value, icon: Icon, color }: any) => (
-  <Card variant="outlined" sx={{ borderRadius: 3, height: '100%', bgcolor: '#ffffff' }}>
-    <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Box sx={{ p: 0.8, borderRadius: 2, bgcolor: 'action.hover', color: `${color}.main`, display: 'flex' }}>
-          <Icon size={18} />
-        </Box>
-        <Box>
-          <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.secondary', display: 'block', textTransform: 'uppercase', fontSize: '0.55rem', lineHeight: 1 }}>
-            {title}
-          </Typography>
-          <Typography variant="subtitle2" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
-            {value?.toLocaleString() || '0'}
-          </Typography>
-        </Box>
-      </Stack>
-    </CardContent>
-  </Card>
-);
-
-export default function InteractiveTexasDashboard() {
-  const [geoData, setGeoData] = useState<any>(null);
-  const [systemMap, setSystemMap] = useState<Record<string, string[]> | null>(null);
-  const [selectedData, setSelectedData] = useState<any>(null);
-  const [isActionLoading, setIsActionLoading] = useState(false);
-  const selectedYear = 2024;
-
-  const supabase = createClient();
-
-  useEffect(() => {
-    // Fetch Map Geometry and System Data
-    async function initData() {
-      const [geoRes, systemsRes] = await Promise.all([
-        fetch("/texas-counties.json").then(res => res.json()),
-        supabase.from("counties_managed_systems").select("county, system_type")
-      ]);
-
-      if (systemsRes.data) {
-        const mapping: Record<string, string[]> = {};
-        systemsRes.data.forEach(row => {
-          const key = cleanKey(row.county);
-          if (!mapping[key]) mapping[key] = [];
-          if (row.system_type) mapping[key].push(row.system_type);
-        });
-        setSystemMap(mapping);
-      }
-      setGeoData(geoRes);
-    }
-    initData();
-  }, []);
-
-  const onCountyClick = async (feature: any) => {
-    const rawName = feature.properties.NAME || feature.properties.name || "";
-    const searchName = rawName.replace(/\s*County$/i, "").trim();
-    setIsActionLoading(true);
-
-    try {
-      const [systemsRes, spendingRes, courtIdRes] = await Promise.all([
-        supabase.from("counties_managed_systems").select("population, system_type").ilike("county", `%${searchName}%`),
-        supabase.from("county_per_capita_spending").select("net_per_capita_spending, total_net_expenditure").ilike("County", `%${searchName}%`).maybeSingle(),
-        supabase.from("counties").select("id").ilike("name", searchName).maybeSingle()
-      ]);
-
-      let courtActivity = null;
-      if (courtIdRes.data?.id) {
-        const { data } = await supabase
-          .from('county_year_disposition_summary')
-          .select('*')
-          .eq('county_id', courtIdRes.data.id)
-          .eq('year', selectedYear)
-          .maybeSingle();
-        courtActivity = data;
-      }
-
-      setSelectedData({
-        county_name: `${searchName} County`,
-        population: systemsRes.data?.[0]?.population || 0,
-        systemTypes: Array.from(new Set(systemsRes.data?.map(s => s.system_type).filter(Boolean) || [])),
-        perCapita: spendingRes.data?.net_per_capita_spending || 0,
-        totalExpenditure: spendingRes.data?.total_net_expenditure || 0,
-        courtStats: courtActivity
-      });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsActionLoading(false);
-    }
-  };
-
-  const geojsonStyle = (feature: any) => {
-    const key = cleanKey(feature.properties.NAME || feature.properties.name || "");
-    const systems = systemMap ? systemMap[key] : [];
-    return {
-      fillColor: getCountyColor(systems),
-      weight: 1,
-      opacity: 1,
-      color: 'white',
-      fillOpacity: 0.7
-    };
-  };
-
-  if (!geoData || !systemMap) return <CircularProgress sx={{ m: 'auto' }} />;
-
+export default function Home() {
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 3 }}>
-      {/* LEGEND (Simplified) */}
-      <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ px: 1 }}>
-        {[{ label: "Public Defender", color: "#1976d2" }, { label: "Regional PD", color: "#0ea5e9" }, { label: "MAC", color: "#8b5cf6" }].map((item) => (
-          <Stack key={item.label} direction="row" alignItems="center" spacing={1}>
-            <Box sx={{ width: 12, height: 12, borderRadius: 0.5, bgcolor: item.color }} />
-            <Typography variant="caption" sx={{ fontWeight: 700 }}>{item.label}</Typography>
-          </Stack>
-        ))}
-      </Stack>
+    <main>
+      {/* Hero Section */}
+      <HeroSection />
 
-      {/* MAP CONTAINER */}
-      <Paper sx={{ height: 500, width: '100%', borderRadius: 4, overflow: 'hidden', position: 'relative', border: '1px solid #e2e8f0' }}>
-        <MapContainer 
-          center={[31.9686, -99.9018]} 
-          zoom={6} 
-          style={{ height: '100%', width: '100%' }}
-          scrollWheelZoom={false}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <GeoJSON 
-            data={geoData} 
-            style={geojsonStyle}
-            eventHandlers={{
-              click: (e) => onCountyClick(e.propagatedFrom.feature)
-            }}
+      {/* Data Insights Section */}
+      <Section
+        title="Data Insights"
+        subtitle="Explore our data insights below"
+        spacing={3}
+      >
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Caseloads in Texas"
+            linkText="Read More About Caseloads"
+            linkHref="/caseloads"
+            isDark={true}
+          >
+            <Typography component="p">
+              Whether someone accused of a crime hires an attorney or is
+              appointed one depends on a lot of factors. The accused may have
+              more money and resources to afford an attorney.
+            </Typography>
+          </DataCard>
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Outcomes in Texas"
+            linkText="Read More About Outcomes"
+            linkHref="/outcomes"
+            isDark={false}
+          >
+            <Typography component="p">
+              Whether someone accused of a crime hires an attorney or is
+              appointed one depends on a lot of factors. The accused may have
+              more money and resources to afford an attorney.
+            </Typography>
+          </DataCard>
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Demographics in Texas"
+            linkText="Read More About Demographics"
+            linkHref="/demographics"
+            isDark={true}
+          >
+            <Typography component="p">
+              The demographic makeup of defendants in the criminal justice
+              system often doesn&apos;t reflect the general population. Data
+              shows disparities in representation across racial, ethnic, and
+              socioeconomic lines.
+            </Typography>
+          </DataCard>
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <DataCard
+            title="Resources in Texas"
+            linkText="Read More About Resources"
+            linkHref="/resources"
+            isDark={false}
+          >
+            <Typography component="p">
+              Public defender offices across Texas face varying levels of
+              funding and resource allocation. Some counties have robust systems
+              with adequate staffing and support, while others struggle with
+              overwhelming caseloads.
+            </Typography>
+          </DataCard>
+        </Grid>
+      </Section>
+
+      {/* Case Lifecycle Section */}
+      <Section spacing={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography variant="h4" component="h2" sx={{ fontWeight: 800 }} gutterBottom>
+            The Lifecycle of a Case
+          </Typography>
+          <Typography sx={{ mb: "1rem" }}>
+            Indigent defense data plays a crucial role in enhancing
+            accountability within the legal system. By tracking the performance
+            of public defenders, we can ensure they provide quality
+            representation and adhere to ethical standards. However, many public
+            defenders are overwhelmed by excessive case loads, which compromises
+            their ability to effectively advocate for their clients. This
+            transparency not only promotes trust in the system but also holds
+            defenders responsible for their work, ultimately benefiting those
+            they represent.
+          </Typography>
+          <Typography>
+            Moreover, analyzing this data allows for better resource allocation
+            and policy development. The shortage of public defenders leads to
+            unequal access to justice, as many defendants are left with
+            inadequate representation. By identifying trends and areas of need,
+            we can direct resources more effectively to public defense services.
+            Data-driven insights inform policymakers about the effectiveness of
+            indigent defense systems, guiding necessary reforms and improvements
+            that promote fairness and equity in justice.
+          </Typography>
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <StatCard
+            value="87%"
+            description="of criminal cases in Texas are handled by appointed attorneys"
           />
-        </MapContainer>
-        {isActionLoading && <CircularProgress size={24} sx={{ position: 'absolute', top: 20, right: 20, zIndex: 1000 }} />}
-      </Paper>
+        </Grid>
+      </Section>
 
-      {/* DATA DISPLAY */}
-      {selectedData && (
-        <Paper sx={{ p: 3, borderRadius: 4, border: '1px solid #e2e8f0' }}>
-          <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-            <Typography variant="h5" sx={{ fontWeight: 900 }}>{selectedData.county_name}</Typography>
-            <IconButton onClick={() => setSelectedData(null)}><X size={18} /></IconButton>
+      {/* Impact Section */}
+      <Section spacing={4} marginBottom={8}>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <Typography variant="h4" component="h2" sx={{ fontWeight: 800 }} gutterBottom>
+            Impact of data-driven tools
+          </Typography>
+        </Grid>
+        <Grid size={{ xs: 12, md: 8 }}>
+          <Stack spacing={4}>
+            <ImpactItem title="Improved Access to Justice">
+              <Typography>
+                By highlighting disparities in public defense representation,
+                data can drive policies that ensure more equitable legal
+                representation for all, particularly for marginalized
+                communities.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Policy Reform">
+              <Typography>
+                With evidence-backed insights, researchers and policymakers can
+                advocate for reforms that reduce systemic biases, improve legal
+                outcomes, and ensure fairer sentencing and treatment of
+                defendants.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Transparency and Accountability">
+              <Typography>
+                Data sheds light on inefficiencies and inequalities within the
+                criminal justice system, promoting greater accountability among
+                public institutions and legal professionals.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Reduction in Mass Incarceration">
+              <Typography>
+                By identifying patterns in over-policing or harsh sentencing,
+                data can support efforts to reduce unnecessary imprisonment,
+                benefiting individuals, families, and communities.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Community Empowerment">
+              <Typography>
+                Educating the public about the state of public defense and legal
+                representation empowers communities to push for reforms and
+                advocate for their rights.
+              </Typography>
+            </ImpactItem>
+
+            <ImpactItem title="Resource Allocation">
+              <Typography>
+                Data helps direct resources, like funding and staffing, to
+                underserved public defender offices, ensuring better support for
+                both defenders and defendants.
+              </Typography>
+            </ImpactItem>
+
+            <Typography sx={{ pt: 2, fontWeight: 500, color: 'text.secondary' }}>
+              Overall, the social impact is about creating a more just, fair,
+              and transparent criminal justice system that better serves all
+              citizens.
+            </Typography>
           </Stack>
-          
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <Stack spacing={2}>
-                <Box sx={{ p: 2, bgcolor: '#f8fafc', borderRadius: 3 }}>
-                  <Typography variant="caption" sx={{ fontWeight: 800, color: '#64748b' }}>POPULATION</Typography>
-                  <Typography variant="h6">{selectedData.population?.toLocaleString()}</Typography>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography variant="caption" sx={{ fontWeight: 800, color: '#64748b' }}>SYSTEMS</Typography>
-                  <Stack direction="row" spacing={0.5} mt={1}>
-                    {selectedData.systemTypes.map((t: string) => <Chip key={t} label={t} size="small" />)}
-                  </Stack>
-                </Box>
-                <Box sx={{ p: 2, bgcolor: 'rgba(34, 197, 94, 0.05)', borderRadius: 3 }}>
-                  <Typography variant="caption" sx={{ fontWeight: 800, color: '#166534' }}>TOTAL EXPENDITURE</Typography>
-                  <Typography variant="h6" color="#14532d">${selectedData.totalExpenditure?.toLocaleString()}</Typography>
-                  <Typography variant="caption" display="block">Per Capita: ${selectedData.perCapita?.toFixed(2)}</Typography>
-                </Box>
-              </Stack>
-            </Grid>
-
-            <Grid item xs={12} md={8}>
-              <Box sx={{ p: 2, bgcolor: '#f1f5f9', borderRadius: 3 }}>
-                <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800 }}>Court Activity ({selectedYear})</Typography>
-                <Grid container spacing={1}>
-                  {/* Felony Row */}
-                  <Grid item xs={4}><StatCard title="Felony Disposed" value={selectedData.courtStats?.total_disposed_felonies} icon={Scale} color="primary" /></Grid>
-                  <Grid item xs={4}><StatCard title="Felony Convictions" value={selectedData.courtStats?.total_felony_convictions} icon={FileX} color="error" /></Grid>
-                  <Grid item xs={4}><StatCard title="Felony Dismissals" value={selectedData.courtStats?.total_felony_dismissals} icon={FileCheck} color="success" /></Grid>
-                  {/* Misdemeanor Row */}
-                  <Grid item xs={4}><StatCard title="Misd. Disposed" value={selectedData.courtStats?.total_disposed_misdemeanors} icon={Scale} color="primary" /></Grid>
-                  <Grid item xs={4}><StatCard title="Misd. Convictions" value={selectedData.courtStats?.total_misdemeanor_convictions} icon={FileX} color="error" /></Grid>
-                  <Grid item xs={4}><StatCard title="Misd. Dismissals" value={selectedData.courtStats?.total_misdemeanor_dismissals} icon={FileCheck} color="success" /></Grid>
-                </Grid>
-              </Box>
-            </Grid>
-          </Grid>
-        </Paper>
-      )}
-    </Box>
+        </Grid>
+      </Section>
+    </main>
   );
 }
