@@ -42,7 +42,7 @@ export default function Resources() {
           <Typography variant="h4" component="h2" gutterBottom>
             Resource Library
           </Typography>
-          <Typography paragraph>
+          <Typography component="p">
             Our resource library includes a variety of materials to support
             public defenders, researchers, policymakers, and community
             advocates. These resources are designed to help you understand and
