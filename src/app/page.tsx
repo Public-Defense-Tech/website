@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Typography, Stack } from "@mui/material";
-import Grid from "@mui/material/Grid2"; // Note: MUI recommends Grid2 for the latest versions
+import Grid from "@mui/material/Grid";
 
 // Import our new components
 import HeroSection from "@/components/HeroSection";
