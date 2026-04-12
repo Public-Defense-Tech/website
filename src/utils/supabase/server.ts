@@ -15,14 +15,14 @@ let supabase: SupabaseClient<Database> | null = null;
 export function createClient() {
   if (supabase) return supabase;
 
-  if (!process.env.SUPABASE_PROJECT_URL || !process.env.SUPABASE_SERVICE_ROLE) {
-    throw new Error("Missing Supabase environment variables");
+  const url = process.env.SUPABASE_PROJECT_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE;
+
+  if (!url || !key) {
+    throw new Error("Missing Supabase environment variables (need NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE)");
   }
 
-  supabase = createSupabaseClient<Database>(
-    process.env.SUPABASE_PROJECT_URL,
-    process.env.SUPABASE_SERVICE_ROLE
-  );
+  supabase = createSupabaseClient<Database>(url, key);
 
   return supabase;
 }
