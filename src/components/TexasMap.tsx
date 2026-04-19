@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import type { FeatureCollection } from "geojson";
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  Geometry,
+} from "geojson";
+import type { Tables } from "@/types/database";
 import {
   ComposableMap,
   Geographies,
@@ -40,17 +46,62 @@ const CASELOAD_STANDARDS = { felony: 150, misdemeanor: 400 };
 
 const AVAILABLE_YEARS = [2022, 2023, 2024];
 
+type ManagedSystemRow = Tables<"counties_managed_systems">;
+type CourtYearRow = Tables<"county_year_disposition_summary">;
+type AttorneyRow = Tables<"attorney_detail_report">;
+
+/** Disposition row; DB may expose extra columns before types are regenerated. */
+type CountyCourtStats = CourtYearRow & {
+  felony_appointment_rate?: number | null;
+  felony_cases_paid?: number | null;
+  felony_new_cases_filed?: number | null;
+  misdemeanor_appointment_rate?: number | null;
+  misdemeanor_cases_paid?: number | null;
+  misdemeanor_new_cases_filed?: number | null;
+};
+
+type CountyAttorneysResponse = {
+  attorneys: AttorneyRow[];
+  threeYearAvgMap: Record<string, number>;
+  highCaseloadCount: number;
+};
+
+export type SelectedCountyData = {
+  county_name: string;
+  population: number;
+  areaSqMiles: number | null;
+  systems: ManagedSystemRow[];
+  perCapita: number;
+  totalExpenditure: number;
+  courtStats: CountyCourtStats | null;
+  topAttorneys: AttorneyRow[];
+  threeYearAvgMap: Record<string, number>;
+  highCaseloadCount: number;
+};
+
+function parseCountyAttorneysResponse(raw: unknown): CountyAttorneysResponse {
+  if (raw == null || typeof raw !== "object") {
+    return { attorneys: [], threeYearAvgMap: {}, highCaseloadCount: 0 };
+  }
+  const o = raw as Record<string, unknown>;
+  const attorneys = Array.isArray(o.attorneys)
+    ? (o.attorneys as AttorneyRow[])
+    : [];
+  const threeYearAvgMap =
+    o.threeYearAvgMap != null && typeof o.threeYearAvgMap === "object"
+      ? (o.threeYearAvgMap as Record<string, number>)
+      : {};
+  const highCaseloadCount =
+    typeof o.highCaseloadCount === "number" ? o.highCaseloadCount : 0;
+  return { attorneys, threeYearAvgMap, highCaseloadCount };
+}
+
 // --- HELPERS ---
-const getCountyName = (properties: any): string =>
-  (
-    properties.NAME ||
-    properties.name ||
-    properties.CNTY_NM ||
-    properties.COUNTY ||
-    ""
-  )
-    .toString()
-    .trim();
+const getCountyName = (properties: GeoJsonProperties | undefined): string => {
+  if (properties == null || typeof properties !== "object") return "";
+  const p = properties as Record<string, unknown>;
+  return String(p.NAME ?? p.name ?? p.CNTY_NM ?? p.COUNTY ?? "").trim();
+};
 
 const cleanKey = (name: string) =>
   name
@@ -58,7 +109,7 @@ const cleanKey = (name: string) =>
     .replace(/\s*COUNTY$/i, "")
     .trim();
 
-const getCountyColor = (systems: any[]) => {
+const getCountyColor = (systems: string[]) => {
   if (!systems || systems.length === 0) return "#f8fafc";
   if (systems.length > 1) return "#6366f1";
   const rawType = systems[0];
@@ -162,7 +213,9 @@ export default function InteractiveTexasDashboard() {
   const [selectedCountyName, setSelectedCountyName] = useState<string | null>(
     null,
   );
-  const [selectedData, setSelectedData] = useState<any>(null);
+  const [selectedData, setSelectedData] = useState<SelectedCountyData | null>(
+    null,
+  );
   const [systemMap, setSystemMap] = useState<Record<string, string[]> | null>(
     null,
   );
@@ -267,8 +320,8 @@ export default function InteractiveTexasDashboard() {
             .maybeSingle(),
         ]);
 
-        let courtActivity: any = null;
-        let topAttorneys: any[] = [];
+        let courtActivity: CountyCourtStats | null = null;
+        let topAttorneys: AttorneyRow[] = [];
         let threeYearAvgMap: Record<string, number> = {};
         let highCaseloadCount = 0;
 
@@ -283,7 +336,7 @@ export default function InteractiveTexasDashboard() {
           `/api/county-attorneys?county=${encodeURIComponent(searchName)}&year=${selectedYear}`,
         )
           .then(async (r) => {
-            const json = await r.json();
+            const json: unknown = await r.json();
             console.log(`[county-attorneys] status=${r.status}`, json);
             return json;
           })
@@ -295,7 +348,7 @@ export default function InteractiveTexasDashboard() {
         if (countyRes.data?.id) {
           const countyId = countyRes.data.id;
 
-          const [courtRes, attorneyJson] = await Promise.all([
+          const [courtRes, attorneyRaw] = await Promise.all([
             supabase
               .from("county_year_disposition_summary")
               .select("*")
@@ -306,18 +359,20 @@ export default function InteractiveTexasDashboard() {
           ]);
 
           courtActivity = courtRes.data ?? null;
-          topAttorneys = attorneyJson?.attorneys ?? [];
-          threeYearAvgMap = attorneyJson?.threeYearAvgMap ?? {};
-          highCaseloadCount = attorneyJson?.highCaseloadCount ?? 0;
+          const parsed = parseCountyAttorneysResponse(attorneyRaw);
+          topAttorneys = parsed.attorneys;
+          threeYearAvgMap = parsed.threeYearAvgMap;
+          highCaseloadCount = parsed.highCaseloadCount;
         } else {
-          const attorneyJson = await attorneyFetch;
-          topAttorneys = attorneyJson?.attorneys ?? [];
-          threeYearAvgMap = attorneyJson?.threeYearAvgMap ?? {};
-          highCaseloadCount = attorneyJson?.highCaseloadCount ?? 0;
+          const attorneyRaw = await attorneyFetch;
+          const parsed = parseCountyAttorneysResponse(attorneyRaw);
+          topAttorneys = parsed.attorneys;
+          threeYearAvgMap = parsed.threeYearAvgMap;
+          highCaseloadCount = parsed.highCaseloadCount;
         }
 
         // Deduplicate managed systems by system_type
-        const systemRows: any[] = systemsRes.data || [];
+        const systemRows: ManagedSystemRow[] = systemsRes.data ?? [];
         const seenTypes = new Set<string>();
         const uniqueSystems = systemRows.filter((r) => {
           const key = r.system_type ?? r.name ?? "";
@@ -357,7 +412,7 @@ export default function InteractiveTexasDashboard() {
     }
   }, [selectedCountyName, fetchCountyData]);
 
-  const handleCountyClick = (geo: any) => {
+  const handleCountyClick = (geo: Feature<Geometry>) => {
     const rawName = getCountyName(geo.properties);
     if (!rawName) return;
     const searchName = rawName.replace(/\s*County$/i, "").trim();
@@ -457,7 +512,11 @@ export default function InteractiveTexasDashboard() {
         ) : (
           <ComposableMap
             projection="geoMercator"
-            projectionConfig={{ scale: 2400, center: [-99.5, 31.2] } as any}
+            projectionConfig={
+              { scale: 2400, center: [-99.5, 31.2] } as React.ComponentProps<
+                typeof ComposableMap
+              >["projectionConfig"]
+            }
             width={800}
             height={600}
             style={{ width: "100%", height: "auto" }}
@@ -476,7 +535,10 @@ export default function InteractiveTexasDashboard() {
                       .toLowerCase() === selectedCountyName.toLowerCase();
                   return (
                     <Geography
-                      key={(geo as any).rsmKey || index}
+                      key={
+                        (geo as Feature<Geometry> & { rsmKey?: string }).rsmKey ??
+                        index
+                      }
                       geography={geo}
                       onClick={() => handleCountyClick(geo)}
                       tabIndex={-1}
@@ -667,7 +729,7 @@ export default function InteractiveTexasDashboard() {
                       <SectionLabel>Managed Systems</SectionLabel>
                       <Stack spacing={0.75}>
                         {selectedData.systems.length > 0 ? (
-                          selectedData.systems.map((s: any, i: number) => (
+                          selectedData.systems.map((s: ManagedSystemRow, i: number) => (
                             <Stack
                               key={i}
                               direction="row"
@@ -1313,7 +1375,7 @@ export default function InteractiveTexasDashboard() {
                           <TableBody>
                             {selectedData.topAttorneys.length > 0 ? (
                               selectedData.topAttorneys.map(
-                                (a: any, i: number) => {
+                                (a: AttorneyRow, i: number) => {
                                   const cases = a.total_cases || 0;
                                   const barNum = String(a.bar_number ?? "—");
                                   const avg =
