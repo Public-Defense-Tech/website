@@ -27,11 +27,7 @@ import {
   TableRow,
   Tooltip,
 } from "@mui/material";
-import {
-  X,
-  TrendingDown,
-  TrendingUp,
-} from "lucide-react";
+import { X, TrendingDown, TrendingUp } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
 const TEXAS_TOPO_JSON = "/texas-counties.json";
@@ -46,12 +42,21 @@ const AVAILABLE_YEARS = [2022, 2023, 2024];
 
 // --- HELPERS ---
 const getCountyName = (properties: any): string =>
-  (properties.NAME || properties.name || properties.CNTY_NM || properties.COUNTY || "")
+  (
+    properties.NAME ||
+    properties.name ||
+    properties.CNTY_NM ||
+    properties.COUNTY ||
+    ""
+  )
     .toString()
     .trim();
 
 const cleanKey = (name: string) =>
-  name.toUpperCase().replace(/\s*COUNTY$/i, "").trim();
+  name
+    .toUpperCase()
+    .replace(/\s*COUNTY$/i, "")
+    .trim();
 
 const getCountyColor = (systems: any[]) => {
   if (!systems || systems.length === 0) return "#f8fafc";
@@ -61,11 +66,15 @@ const getCountyColor = (systems: any[]) => {
   const type = rawType.toLowerCase();
   if (type.includes("regional")) return "#0ea5e9";
   if (type.includes("public defender")) return "#1976d2";
-  if (type.includes("managed assigned counsel") || type.includes("mac")) return "#8b5cf6";
+  if (type.includes("managed assigned counsel") || type.includes("mac"))
+    return "#8b5cf6";
   return "#94a3b8";
 };
 
-const pct = (n: number | null | undefined, d: number | null | undefined): string => {
+const pct = (
+  n: number | null | undefined,
+  d: number | null | undefined,
+): string => {
   if (!n || !d || d === 0) return "—";
   return `${((n / d) * 100).toFixed(1)}%`;
 };
@@ -150,14 +159,20 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 
 export default function InteractiveTexasDashboard() {
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedCountyName, setSelectedCountyName] = useState<string | null>(null);
+  const [selectedCountyName, setSelectedCountyName] = useState<string | null>(
+    null,
+  );
   const [selectedData, setSelectedData] = useState<any>(null);
-  const [systemMap, setSystemMap] = useState<Record<string, string[]> | null>(null);
+  const [systemMap, setSystemMap] = useState<Record<string, string[]> | null>(
+    null,
+  );
   const [texasGeo, setTexasGeo] = useState<FeatureCollection | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number>(2023);
-  const [stateAvgPerCapita, setStateAvgPerCapita] = useState<number | null>(null);
+  const [stateAvgPerCapita, setStateAvgPerCapita] = useState<number | null>(
+    null,
+  );
 
   const supabase = useMemo(() => createClient(), []);
 
@@ -169,11 +184,16 @@ export default function InteractiveTexasDashboard() {
     async function initMap() {
       setGeoError(null);
       try {
-        const [systemsOutcome, geoOutcome, spendingOutcome] = await Promise.allSettled([
-          supabase.from("counties_managed_systems").select("county, system_type"),
-          fetch(TEXAS_TOPO_JSON),
-          supabase.from("county_per_capita_spending").select("net_per_capita_spending"),
-        ]);
+        const [systemsOutcome, geoOutcome, spendingOutcome] =
+          await Promise.allSettled([
+            supabase
+              .from("counties_managed_systems")
+              .select("county, system_type"),
+            fetch(TEXAS_TOPO_JSON),
+            supabase
+              .from("county_per_capita_spending")
+              .select("net_per_capita_spending"),
+          ]);
 
         if (cancelled) return;
 
@@ -222,7 +242,12 @@ export default function InteractiveTexasDashboard() {
   // Fetch county data whenever selected county or year changes
   const fetchCountyData = useCallback(
     async (searchName: string) => {
-      console.log("[fetchCountyData] called with", searchName, "year", selectedYear);
+      console.log(
+        "[fetchCountyData] called with",
+        searchName,
+        "year",
+        selectedYear,
+      );
       setIsActionLoading(true);
       try {
         const [systemsRes, spendingRes, countyRes] = await Promise.all([
@@ -247,18 +272,25 @@ export default function InteractiveTexasDashboard() {
         let threeYearAvgMap: Record<string, number> = {};
         let highCaseloadCount = 0;
 
-        console.log("[fetchCountyData] reached attorney fetch for", searchName, "year", selectedYear);
+        console.log(
+          "[fetchCountyData] reached attorney fetch for",
+          searchName,
+          "year",
+          selectedYear,
+        );
         // Attorney data is fetched server-side to bypass RLS on attorney_detail_report
         const attorneyFetch = fetch(
-          `/api/county-attorneys?county=${encodeURIComponent(searchName)}&year=${selectedYear}`
-        ).then(async (r) => {
-          const json = await r.json();
-          console.log(`[county-attorneys] status=${r.status}`, json);
-          return json;
-        }).catch((e) => {
-          console.error("[county-attorneys] fetch error:", e);
-          return null;
-        });
+          `/api/county-attorneys?county=${encodeURIComponent(searchName)}&year=${selectedYear}`,
+        )
+          .then(async (r) => {
+            const json = await r.json();
+            console.log(`[county-attorneys] status=${r.status}`, json);
+            return json;
+          })
+          .catch((e) => {
+            console.error("[county-attorneys] fetch error:", e);
+            return null;
+          });
 
         if (countyRes.data?.id) {
           const countyId = countyRes.data.id;
@@ -315,7 +347,7 @@ export default function InteractiveTexasDashboard() {
         setIsActionLoading(false);
       }
     },
-    [supabase, selectedYear]
+    [supabase, selectedYear],
   );
 
   // Trigger fetch when county or year changes
@@ -348,7 +380,9 @@ export default function InteractiveTexasDashboard() {
   }
 
   return (
-    <Box sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 3 }}>
+    <Box
+      sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 3 }}
+    >
       {/* LEGEND */}
       <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ px: 1 }}>
         {[
@@ -448,7 +482,9 @@ export default function InteractiveTexasDashboard() {
                       tabIndex={-1}
                       style={{
                         default: {
-                          fill: isSelected ? "#0f172a" : getCountyColor(systems),
+                          fill: isSelected
+                            ? "#0f172a"
+                            : getCountyColor(systems),
                           stroke: "#cbd5e1",
                           strokeWidth: 0.5,
                           outline: "none",
@@ -607,7 +643,9 @@ export default function InteractiveTexasDashboard() {
                                 lineHeight: 1.1,
                               }}
                             >
-                              {Number(selectedData.areaSqMiles).toLocaleString()}
+                              {Number(
+                                selectedData.areaSqMiles,
+                              ).toLocaleString()}
                             </Typography>
                           </Grid>
                         )}
@@ -725,7 +763,8 @@ export default function InteractiveTexasDashboard() {
                         const county = selectedData.perCapita || 0;
                         const state = stateAvgPerCapita || 0;
                         const national = NATIONAL_AVG_PER_CAPITA;
-                        const maxVal = Math.max(county, state, national) * 1.15 || 100;
+                        const maxVal =
+                          Math.max(county, state, national) * 1.15 || 100;
                         return (
                           <Stack spacing={1.5}>
                             <SpendBar
@@ -805,8 +844,8 @@ export default function InteractiveTexasDashboard() {
                                 fontSize: "0.75rem",
                               }}
                             >
-                              {isBelow ? "below" : "above"} national average
-                              per capita
+                              {isBelow ? "below" : "above"} national average per
+                              capita
                             </Typography>
                             <Typography
                               variant="caption"
@@ -887,10 +926,7 @@ export default function InteractiveTexasDashboard() {
                           >
                             Convictions
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 700 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
                             {selectedData.courtStats?.total_felony_convictions?.toLocaleString() ??
                               "—"}
                           </Typography>
@@ -908,10 +944,7 @@ export default function InteractiveTexasDashboard() {
                           >
                             Dismissals
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 700 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
                             {selectedData.courtStats?.total_felony_dismissals?.toLocaleString() ??
                               "—"}
                           </Typography>
@@ -979,10 +1012,7 @@ export default function InteractiveTexasDashboard() {
                           >
                             Convictions
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 700 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
                             {selectedData.courtStats?.total_misdemeanor_convictions?.toLocaleString() ??
                               "—"}
                           </Typography>
@@ -1000,10 +1030,7 @@ export default function InteractiveTexasDashboard() {
                           >
                             Dismissals
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 700 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
                             {selectedData.courtStats?.total_misdemeanor_dismissals?.toLocaleString() ??
                               "—"}
                           </Typography>
@@ -1050,13 +1077,10 @@ export default function InteractiveTexasDashboard() {
                           >
                             Conv. Rate
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 800 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 800 }}>
                             {pct(
                               selectedData.courtStats?.total_felony_convictions,
-                              selectedData.courtStats?.total_disposed_felonies
+                              selectedData.courtStats?.total_disposed_felonies,
                             )}
                           </Typography>
                         </Box>
@@ -1073,21 +1097,15 @@ export default function InteractiveTexasDashboard() {
                           >
                             Dismissal Rate
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 800 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 800 }}>
                             {pct(
                               selectedData.courtStats?.total_felony_dismissals,
-                              selectedData.courtStats?.total_disposed_felonies
+                              selectedData.courtStats?.total_disposed_felonies,
                             )}
                           </Typography>
                         </Box>
                         <Box>
-                          <Tooltip
-                            title="Cases paid / New cases filed"
-                            arrow
-                          >
+                          <Tooltip title="Cases paid / New cases filed" arrow>
                             <Box>
                               <Typography
                                 variant="caption"
@@ -1112,7 +1130,7 @@ export default function InteractiveTexasDashboard() {
                                       selectedData.courtStats
                                         ?.felony_cases_paid,
                                       selectedData.courtStats
-                                        ?.felony_new_cases_filed
+                                        ?.felony_new_cases_filed,
                                     )}
                               </Typography>
                             </Box>
@@ -1160,15 +1178,12 @@ export default function InteractiveTexasDashboard() {
                           >
                             Conv. Rate
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 800 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 800 }}>
                             {pct(
                               selectedData.courtStats
                                 ?.total_misdemeanor_convictions,
                               selectedData.courtStats
-                                ?.total_disposed_misdemeanors
+                                ?.total_disposed_misdemeanors,
                             )}
                           </Typography>
                         </Box>
@@ -1185,23 +1200,17 @@ export default function InteractiveTexasDashboard() {
                           >
                             Dismissal Rate
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: 800 }}
-                          >
+                          <Typography variant="body1" sx={{ fontWeight: 800 }}>
                             {pct(
                               selectedData.courtStats
                                 ?.total_misdemeanor_dismissals,
                               selectedData.courtStats
-                                ?.total_disposed_misdemeanors
+                                ?.total_disposed_misdemeanors,
                             )}
                           </Typography>
                         </Box>
                         <Box>
-                          <Tooltip
-                            title="Cases paid / New cases filed"
-                            arrow
-                          >
+                          <Tooltip title="Cases paid / New cases filed" arrow>
                             <Box>
                               <Typography
                                 variant="caption"
@@ -1226,7 +1235,7 @@ export default function InteractiveTexasDashboard() {
                                       selectedData.courtStats
                                         ?.misdemeanor_cases_paid,
                                       selectedData.courtStats
-                                        ?.misdemeanor_new_cases_filed
+                                        ?.misdemeanor_new_cases_filed,
                                     )}
                               </Typography>
                             </Box>
@@ -1244,7 +1253,11 @@ export default function InteractiveTexasDashboard() {
                 <Grid container spacing={2}>
                   {/* Table + standards */}
                   <Grid size={{ xs: 12, md: 8 }}>
-                    <Stack direction="row" spacing={1.5} alignItems="flex-start">
+                    <Stack
+                      direction="row"
+                      spacing={1.5}
+                      alignItems="flex-start"
+                    >
                       {/* Attorney table */}
                       <Box
                         sx={{
@@ -1355,7 +1368,7 @@ export default function InteractiveTexasDashboard() {
                                       </TableCell>
                                     </TableRow>
                                   );
-                                }
+                                },
                               )
                             ) : (
                               <TableRow>
