@@ -63,3 +63,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* Remove focus outlines on SVG map paths */
+svg path:focus,
+svg path:focus-visible {
+  outline: none;
+}

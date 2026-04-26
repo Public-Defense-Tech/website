@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Typography, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
@@ -88,10 +89,10 @@ export default function Home() {
       {/* Case Lifecycle Section */}
       <Section spacing={6}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Something about lifecycle of a case?
+          <Typography variant="h4" component="h2" sx={{ fontWeight: 800 }} gutterBottom>
+            The Lifecycle of a Case
           </Typography>
-          <Typography mb="1rem">
+          <Typography sx={{ mb: "1rem" }}>
             Indigent defense data plays a crucial role in enhancing
             accountability within the legal system. By tracking the performance
             of public defenders, we can ensure they provide quality
@@ -113,7 +114,7 @@ export default function Home() {
             that promote fairness and equity in justice.
           </Typography>
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <StatCard
             value="87%"
             description="of criminal cases in Texas are handled by appointed attorneys"
@@ -124,7 +125,7 @@ export default function Home() {
       {/* Impact Section */}
       <Section spacing={4} marginBottom={8}>
         <Grid size={{ xs: 12, md: 4 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
+          <Typography variant="h4" component="h2" sx={{ fontWeight: 800 }} gutterBottom>
             Impact of data-driven tools
           </Typography>
         </Grid>
@@ -180,7 +181,7 @@ export default function Home() {
               </Typography>
             </ImpactItem>
 
-            <Typography>
+            <Typography sx={{ pt: 2, fontWeight: 500, color: 'text.secondary' }}>
               Overall, the social impact is about creating a more just, fair,
               and transparent criminal justice system that better serves all
               citizens.
