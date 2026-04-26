@@ -948,8 +948,26 @@ export type Database = {
           },
         ]
       }
-    }
+    },
     Views: {
+      attorney_yearly_totals: {
+            Row: {
+              attorney_name: string | null
+              bar_number: string | null
+              fiscal_year: number | null
+              total_cases_reported: number | null
+              total_paid_amount: number | null
+            }
+            Insert: {
+              // Note: Views are usually read-only and don't accept inserts.
+              // This can be left empty unless you have triggers handling inserts.
+            }
+            Update: {
+              // Note: Views are usually read-only and don't accept updates.
+            }
+            Relationships: []
+          }
+        },    
       all_taylor_data: {
         Row: {
           appointed_retained: string | null

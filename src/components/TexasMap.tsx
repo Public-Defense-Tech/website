@@ -48,7 +48,7 @@ const AVAILABLE_YEARS = [2022, 2023, 2024];
 
 type ManagedSystemRow = Tables<"counties_managed_systems">;
 type CourtYearRow = Tables<"county_year_disposition_summary">;
-type AttorneyRow = Tables<"attorney_detail_report">;
+type AttorneyRow = Tables<"attorney_yearly_totals">;
 
 /** Disposition row; DB may expose extra columns before types are regenerated. */
 type CountyCourtStats = CourtYearRow & {
@@ -1376,7 +1376,7 @@ export default function InteractiveTexasDashboard() {
                             {selectedData.topAttorneys.length > 0 ? (
                               selectedData.topAttorneys.map(
                                 (a: AttorneyRow, i: number) => {
-                                  const cases = a.total_cases || 0;
+                                  const cases = a.total_cases_reported || 0;
                                   const barNum = String(a.bar_number ?? "—");
                                   const avg =
                                     selectedData.threeYearAvgMap[barNum];
